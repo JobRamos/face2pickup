@@ -2,6 +2,8 @@ var express = require('express');
 
 var path = require('path');
 
+const stripe = require('stripe')('sk_test_51MwEu0GCyDPnf9y0OMvmAVe006wbYxiFh5E5k9mE0tqKg5Z6zOG3W7LSacDMuzuYwozOMpU5WR7V4JOSyFGowXzy00Fy6KbrLw');
+
 var favicon = require('serve-favicon');
 var morgan = require('morgan');
 
@@ -14,6 +16,10 @@ var passport = require('passport');
 var flash = require('connect-flash');
 
 var app = express();
+
+var database = require('./config/database');
+var RunQuery = database.RunQuery;
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -46,10 +52,37 @@ app.use(passport.session());
     // use connect-flash for flash messages stored in session
 app.use(flash());
 
+const YOUR_DOMAIN = 'http://110.238.80.161:3000';
+
+app.post('/create-checkout-session', async (req, res) => {
+  const session = await stripe.checkout.sessions.create({
+    line_items: [
+        {
+          price_data: {
+            currency: "MXN",
+            unit_amount: req.session.cartSummary.total * 100,
+            product_data: {
+              name: "Iocus",
+            },
+          },
+          quantity: 1,
+        },
+      ],
+    mode: 'payment',
+    success_url: `${YOUR_DOMAIN}/checkout/order`,
+    cancel_url: `${YOUR_DOMAIN}/`,
+  });
+
+  res.redirect(303, session.url);
+
+
+});
+
 // routes
 var routes = require('./routes/routes');
 var users = require('./routes/users')(app, passport);
 var products = require('./routes/cart');
+var wishlist = require('./routes/wishlist');
 var checkout = require('./routes/checkout');
 var press = require('./routes/press');
 var services = require('./routes/services');
@@ -60,6 +93,7 @@ var profile = require('./routes/profile');
 
 app.use('/', routes);
 app.use('/cart', products);
+app.use('/wishlist', wishlist);
 app.use('/checkout', checkout);
 app.use('/press', press);
 app.use('/services', services);
@@ -118,3 +152,5 @@ app.use(function (err, req, res, next) {
 
 
 module.exports = app;
+
+

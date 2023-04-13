@@ -1,25 +1,27 @@
 extends layout
 
 block content
+    
+
+
     section
+
         .container
-            .row
-                //.col-sm-3
-                //    .left-sidebar
-                //        h2 Categories
-                //        //category-products
-                //        #accordian.panel-group.category-products
-                //            if categories
-                //                each category in categories
-                //                    .panel.panel-default
-                //                        .panel-heading
-                //                            h4.panel-title
-                //                                a(href='/categories/' + category.CategorySlug)= category.CategoryName
-                //        ///category-products
-                //.col-sm-9.padding-right
-                //features_items
+            .row    
                 .features_items
-                        h2.title.text-center Featured Products
+
+                        .banner
+                            .capa
+                            .info
+                                img.iocus-banner(src='/img/iocus-1.png', alt='Iocus Logo')
+                                p
+                                | Bienvenido a Iocus, el mejor sitio web para la compra de videojuegos digitales
+          
+                                       
+                        br
+
+                        
+                        h2.title.text-center Videojuegos
                         if featProducts
                             each product in featProducts
                                 - var productUrl = '/cat/' + product.CategorySlug + '/' + product.ProductSlug;
@@ -27,25 +29,23 @@ block content
                                     .product-image-wrapper
                                         .single-products
                                             .productinfo.text-center
-                                                a(href=productUrl)
-                                                    img(src='/img/products/' + product.Image, alt=product.ProductName)
+                                                .productimg
+                                                    a(href=productUrl)
+                                                        img(src=product.Image, alt=product.ProductName)
                                                 p
                                                     a(href=productUrl)=product.ProductName
                                                 h2= ' $' + product.ProductPrice
-                                                form(action='/cart/' + product.ProductID + '/add', method='POST')
-                                                    button.btn.btn-default.add-to-cart(type='submit')
-                                                        i.fa.fa-shopping-cart
-                                                        | Add to cart
                     ///features_items
             .row
                 .features_items
-                    h2.title.text-center Product Categories
+                    h2.title.text-center Categorias
                     if categories
                         each category in categories
                             .col-sm-3
                                 a(href='/cat/' + category.CategorySlug)
                                     .product-image-wrapper
                                         .single-products
-                                            .productinfo.text-center
-                                                img(src='/img/categories/' + category.Image, alt=category.CategoryName)
-                                                h2=category.CategoryName
+                                            .categoryinfo.text-center
+                                                .categoryimg
+                                                    img(src=category.Image, alt=category.CategoryName)
+                                                    h4=category.CategoryName

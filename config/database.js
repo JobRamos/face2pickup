@@ -1,7 +1,7 @@
 // database module
 var mysql = require('mysql');
 var config = {
-    host: '123.60.218.12',
+    host: '110.238.80.161',
     user: 'root',
     password: 'Harveylinux77+',
     database: 'astore'

@@ -2,6 +2,10 @@ extends admin
 
 block details
     .row
+        form(action='/admin/cat/add', method='GET')
+            button.btn.btn-default(type='submit', class="btn btn-success")
+                i.fa.fa-plus
+                = ' Añadir nueva categoría'
         .features_items
             if categories
                 each category in categories
@@ -10,23 +14,19 @@ block details
                             .product-image-wrapper
                                 .single-products
                                     .productinfo.text-center
-                                        img(src='/img/categories/' + category.Image, alt=category.CategoryName)
+                                        img(src=category.Image, alt=category.CategoryName)
                         .col-sm-6
                                 h2.cat=category.CategoryName
                                 p=category.Description
                         .col-sm-3
                                 form.dev-form(action='/admin/cat/' + category.CategoryID + '/edit', method='GET')
-                                    button.btn.btn-default(type='submit')
+                                    button.btn.btn-default(type='submit', class="btn btn-info")
                                         i.fa.fa-edit
-                                        = ' Edit'
+                                        = ' Editar'
 
                                 form.dev-form(action='/admin/cat/' + category.CategoryID + '/delete', method='POST')
-                                    button.btn.btn-default(type='submit')
+                                    button.btn.btn-default(type='submit', class="btn btn-danger")
                                         i.fa.fa-trash-o
-                                        = ' Delete'
-        form(action='/admin/cat/add', method='GET')
-            button.btn.btn-default(type='submit')
-                i.fa.fa-plus
-                = ' Add new category'
+                                        = ' Eliminar'
         br
         br

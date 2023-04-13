@@ -1,61 +1,41 @@
 extends ../layout
 
 block content
-    section#cart_items
-        .container
-            .step-one
-                h2.heading Delivery address
-            .checkout-options
-                h3
-                    i Is the address you'd like to use displayed below?
-                        | If so, click the corresponding "Deliver to this address" button.
+
+    h2.title.text-center
+                    | Seleccionar método de pago
+    p ¿El método de pago que desea utilizar se muestra a continuación?
+                        | Si es así, haga clic en el botón "Seleccionar este método de pago" correspondiente.
                         br
-                        | Or you can enter a new address.
-            .row
-                if addresses
-                    each address in addresses
-                        .cus-name.col-sm-4
-                            h4= address.FullName
-                            p
-                                span= address.StreetAddress
-                                br
-                                span= address.PostCode + ' ' + address.City
-                                br
-                                span= address.Country
-                            p= 'Tel: ' + address.Phone
+                        | También puede Añadir un nuevo método de pago.
 
-                            form(action='/checkout/delivery/' + address.AddressID, method='POST')
-                                input.dev-btn.btn.btn-default.add-to-cart(type='submit', value='Deliver to this address')
-            .step-one#new-address
-                h2.heading New delivery address
 
-            .checkout-options
-                h3
-                    i Be sure to click "Ship to this address" when done.
+    form(action='/usr/' + customer.Username + '/addresses/add', method='GET')
+        button.btn.btn-default(type='submit' class="btn btn-success")
+            i.fa.fa-plus
+            = ' Añadir un nuevo método de pago'
+    br
 
-            .shopper-informations
-                .row
-                    .bill-to
-                        form(action='/checkout/delivery/new', method='POST')
-                            .col-sm-1.clearfix
-                            .col-sm-5.clearfix
-                                label(for='fullName') Full name
-                                input(type='text', id='fullName', name='fullName')
-                                br
-                                label(for='streetAddress') Street address
-                                input(type='text', name='streetAddress', id='streetAddress')
-                                br
-                                label(for='postcode') Postal code
-                                input(type='text', name='postcode', id='postcode')
-                                br
-                                label(for='city') City
-                                input(type='text', name='city', id='city')
-                                br
-                                label(for='country') Country
-                                input(type='text', name='country', id='country')
-                                br
-                                label(for='phone') Phone number
-                                input(type='tel', name='phone', id='phone')
-                                br
-                                br
-                                input.dev-btn.btn.btn-default.add-to-cart(type='submit', value='Deliver to this address')
+    table.content-table
+        thead
+            tr
+                td Nombre del titular
+                td Número de la tarjeta
+                td Mes de expiración
+                td Año de expiración  
+                td CVV
+                td
+
+        tbody
+            each address in addresses
+                tr
+                    td= address.FullName
+                    td= address.StreetAddress
+                    td= address.PostCode
+                    td= address.City
+                    td= "***"
+                    td
+                        form(action='/checkout/delivery/' + address.AddressID, method='POST')
+                                input.dev-btn.btn.btn-default.add-to-cart(type='submit', value='Seleccionar este método de pago')
+
+

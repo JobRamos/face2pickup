@@ -47,11 +47,11 @@ module.exports = function (passport) {
             RunQuery(sqlStr, function (rows) {
                 // if no user is found, return the message
                 if (rows.length < 1)
-                    return done(null, false, req.flash('signInError', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
+                    return done(null, false, req.flash('signInError', 'No se encontro el usuario.')); // req.flash is the way to set flashdata using connect-flash
 
                 // if the user is found but the password is wrong
                 if (!bcrypt.compareSync(password, rows[0].Password))
-                    return done(null, false, req.flash('signInError', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
+                    return done(null, false, req.flash('signInError', 'Oops! Contraseña incorrecta.')); // create the loginMessage and save it to session as flashdata
 
                 // all is well, return successful user
                 return done(null, rows[0]);
@@ -73,7 +73,7 @@ module.exports = function (passport) {
             var email = req.body.email;
 
             if (password != req.body.rePassword) {
-                return done(null, false, req.flash('signUpError', 'Passwords do not match.'));
+                return done(null, false, req.flash('signUpError', 'Las contraseñas no coinciden.'));
             }
             else {
 
@@ -82,7 +82,7 @@ module.exports = function (passport) {
                     WHERE email = \'' + email + '\'';
                 RunQuery(selectQuery, function (emailRows) {
                     if (emailRows.length > 0) {
-                        return done(null, false, req.flash('signUpError', 'Email address has already been used.'));
+                        return done(null, false, req.flash('signUpError', 'Email ya ha sido utilizado.'));
                     }
                     else {
                         selectQuery = '\
@@ -91,25 +91,17 @@ module.exports = function (passport) {
                         WHERE username = \'' + username + '\'';
                         RunQuery(selectQuery, function (usernameRows) {
                             if (usernameRows.length > 0) {
-                                return done(null, false, req.flash('signUpError', 'Username has already been used.'));
+                                return done(null, false, req.flash('signUpError', 'Usuario ya ha sido utilizado.'));
                             }
                             else {
                                 // if there is no user with that user and email
                                 var fullName = req.body.fullName;
                                 var phone = req.body.phone;
-                                var address = req.body.streetAddress;
-                                var postcode = req.body.postcode;
-                                var city = req.body.city;
-                                var country = req.body.country;
                                 var passwordHash = bcrypt.hashSync(password, null, null);
 
                                 var insertQuery = 'INSERT INTO Users\
                                     VALUES(null,\
                                     \'' + fullName + '\', \
-                                    \'' + address + '\', \
-                                    \'' + postcode + '\', \
-                                    \'' + city + '\', \
-                                    \'' + country + '\', \
                                     \'' + phone + '\', \
                                     \'' + email + '\', \
                                     \'' + username + '\', \
@@ -120,18 +112,7 @@ module.exports = function (passport) {
                                     var user = {
                                         UserID: insertResult.insertId
                                     };
-                                    insertQuery = 'INSERT INTO Addresses\
-                                    VALUES(null, ' +
-                                        insertResult.insertId + ', \'' +
-                                        fullName + '\', \'' +
-                                        address + '\', \'' +
-                                        postcode + '\', \'' +
-                                        city + '\', \'' +
-                                        country + '\', \'' +
-                                        phone + '\')';
-                                    RunQuery(insertQuery, function (addRow) {
-                                        return done(null, user);
-                                    });
+                                    return done(null, user);
                                 });
                             }
                         });

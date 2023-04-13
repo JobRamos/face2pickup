@@ -4,40 +4,22 @@ block content
     section#form
         //form
         .container
-            .row
-                .col-sm-3
-                    // nav-bar
-                    .left-sidebar
-                        #accordian.panel-group.category-products
-                            .panel.panel-default
-                                .panel-heading
-                                    h4.panel-title
-                                        a(href='/sign-in') Sign in
-                            .panel.panel-default
-                                .panel-heading
-                                    h4.panel-title
-                                        a(href='/sign-up') Sign up
-                .col-sm-4.text-center
-                    //login form
-                    .login-form
-                        h2 Sign in to your account
-                        if checkOutNoti
-                            if (signInError != '')
-                                p=signInError
-                            else
-                                p=checkOutNoti
-                        else
-                            if (signInError != '')
-                                p=signInError
-
+                    .center-login
+                        h1 Iniciar Sesión
                         form(id='sign-in', action='/sign-in', method='POST')
-                            input(type='text', name='username', placeholder='Username')
-                            input(type='password', name='password', placeholder='Password')
-                            //
-                              <span>
-                              <input type="checkbox" class="checkbox">
-                              Keep me signed in
-                              </span>
-                            button.btn.btn-default(type='submit') Login
-                    ///login form
+                            .txt_field
+                                input(type='text', required='true', name='username')
+                                span
+                                label Usuario
+                            .txt_field
+                                input(type='password', required='true', name='password')
+                                span
+                                label Contraseña
+                            .pass ¿Olvidaste tu  Contraseña?
+                            input(type='submit', value='Login')
+                            .signup_link
+                                | ¿Aún no tienes cuenta? 
+                                a(href='/sign-up') Regístrate en Iocus
+                                br
+                                br
     ///form

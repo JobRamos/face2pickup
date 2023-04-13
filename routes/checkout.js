@@ -22,6 +22,7 @@ router.route('/')
         }
     });
 
+
 router.route('/delivery')
     .get(function (req, res, next) {
         req.session.address = {};
@@ -50,44 +51,6 @@ router.route('/delivery')
         // 3. Redirect
     });
 
-router.route('/delivery/new')
-    .post(function (req, res, next) {
-        var fullName = req.body.fullName;
-        var email = req.body.email;
-        var address = req.body.streetAddress;
-        var postcode = req.body.postcode;
-        var city = req.body.city;
-        var country = req.body.country;
-        var phone = req.body.phone;
-
-        // add address
-        var insertQuery = '\
-            INSERT INTO Addresses\
-            VALUES(null, ' +
-            req.user.UserID + ', \'' +
-            fullName + '\', \'' +
-            address + '\', \'' +
-            postcode + '\', \'' +
-            city + '\', \'' +
-            country + '\', \'' +
-            phone + '\')';
-
-        RunQuery(insertQuery, function (rows) {
-            req.session.address = {
-                AddressID: rows.insertId,
-                FullName: fullName,
-                Email: email,
-                StreetAddress: address,
-                PostCode: postcode,
-                City: city,
-                Country: country,
-                Phone: phone
-            };
-            console.log(req.session.address);
-
-            res.redirect('/checkout/review');
-        });
-    });
 
 router.route('/delivery/:id')
     .post(function (req, res, next) {
@@ -119,14 +82,13 @@ router.route('/review')
 
 router.route('/order')
     .get(function (req, res, next) {
+        
         var insertQuery = '\
             INSERT INTO Orders\
             VALUES(null, ' +
             req.user.UserID + ', ' +
-            req.session.address.AddressID + ', ' +
             req.session.cartSummary.subTotal + ', ' +
             req.session.cartSummary.discount + ', ' +
-            req.session.cartSummary.shipCost + ', ' +
             req.session.cartSummary.total + ', NOW(), \'Order Received\');';
 
         RunQuery(insertQuery, function (rows) {
@@ -165,9 +127,7 @@ router.route('/order')
             RunQuery(selectQuery, function (order) {
                 //get delivery info
                 selectQuery = '\
-                SELECT *\
-                FROM Addresses\
-                WHERE AddressID = ' + order[0].AddressID;
+                SELECT 1';
 
                 RunQuery(selectQuery, function (address) {
                     //get order info
@@ -199,7 +159,7 @@ router.route('/order')
 
                         //get order info
                         var contextDict = {
-                            title: 'Order #' + rows.insertId,
+                            title: 'Orden ' + rows.insertId,
                             customer: req.user,
                             order: order[0],
                             address: address[0],
@@ -211,6 +171,11 @@ router.route('/order')
                 });
             });
         });
+    });
+
+router.route('/success')
+    .get(function (req, res, next) {
+        res.render('success');
     });
 
 module.exports = router;

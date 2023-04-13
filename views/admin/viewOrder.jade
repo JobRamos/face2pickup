@@ -4,60 +4,40 @@ block details
     .row
         .col-sm-6
             .table-responsive.cart_info
-                table.table.table-condensed.total-result
+                table.content-table
                     thead
                         tr.cart_menu
-                            td(colspan=2) Customer Information
+                            td(colspan=2) Información del cliente
                     tbody
                         tr
-                            td Fullname
+                            td Nombre
                             td= orderCustomer.FullName
                         tr
-                            td Address
+                            td Dirección
                             td= orderCustomer.StreetAddress
                         tr
-                            td
+                            td Código Postal, Ciudad
                             td= orderCustomer.PostCode + ' ' + orderCustomer.City
                         tr
-                            td
+                            td País
                             td= orderCustomer.Country
                         tr
-                            td Tel
+                            td Celular
                             td= orderCustomer.Phone
 
         .col-sm-6
-            .table-responsive.cart_info
-                table.table.table-condensed.total-result
-                    thead
-                        tr.cart_menu
-                            td(colspan=2) Delivery Address
-                    tbody
-                        tr
-                            td Fullname
-                            td= address.FullName
-                        tr
-                            td Address
-                            td= address.StreetAddress
-                        tr
-                            td
-                            td= address.PostCode + ' ' + address.City
-                        tr
-                            td
-                            td= address.Country
-                        tr
-                            td Tel
-                            td= address.Phone
+            
 
     .row
-        h5 Order Information
+        h5 Resumen de compra
         .table-responsive.cart_info
-            table.table.table-condensed
+            table.content-table
                 thead
                     tr.cart_menu
                         td.image
-                        td.description Product
-                        td.price Unit Price
-                        td.quantity Quantity
+                        td.description Producto
+                        td.price Precio Unitario
+                        td.quantity Cantidad
                         td.total Total
                 tbody
                     each product in products
@@ -69,7 +49,7 @@ block details
                         tr
                             td.cart_product
                                 a(href=productLink)
-                                    img(src='/img/products/' + product.Image, alt=name)
+                                    img(src=product.Image, alt=name)
                             td.cart_description
                                 h4
                                     a(href=productLink)= name
@@ -84,25 +64,19 @@ block details
                     tr
                         td(colspan='3')
                         td(colspan='2')
-                            table.table.table-condensed.total-result
+                            table.content-table
                                 thead
                                     tr.cart_menu
-                                        td(colspan=2) Summary
+                                        td(colspan=2) Resumen de compra
 
                                 tbody
                                     tr
                                         td Sub Total
-                                        td= ' $' + order.SubTotal
+                                        td(style='color: green;')= ' $' + order.SubTotal
                                     tr
-                                        td Discount
-                                        td= ' $' + order.Discount
-                                    tr.shipping-cost
-                                        td Shipping Cost
-                                        if order.ShippingFee == 0
-                                            td Free
-                                        else
-                                            td= ' $' + order.ShippingFee
+                                        td Descuento
+                                        td(style='color: red;')= ' $' + order.Discount
                                     tr
                                         td Total
-                                        td
+                                        td(style='color: green;')
                                             span= ' $' + order.Total

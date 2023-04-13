@@ -1,15 +1,24 @@
 extends admin
 
 block details
-    form(id='addCat', action='/admin/cat/add', method='POST')
-        label(for='name') Category Name
-        br
-        input(type='text', id='name', name='name', placeholder='Category Name', required=true)
-        br
-        label(for='description') Description
-        textarea(id='description', name='description', required=true) Category Description
-        br
-        label(for='image') Category Image
-        input(type='file', id='image', name='image' required=true)
-        br
-        button.dev-btn.btn.btn-default(type='submit') Submit
+
+    .center-login
+        h1 Añadir nueva categoría
+        form(id='addCat', action='/admin/cat/add', method='POST')
+            .txt_field
+                input(type='text', id='name', name='name', required=true)
+                span
+                label Nombre de la categoría
+            .txt_field
+                input(type='text',id='description', name='description', required=true)
+                span
+                label Descripción de la categoría
+            .txt_field
+                input(type='text', id='image', name='image' required=true)
+                span
+                label Imagen de la categoría
+            input(type='submit', value='Añadir categoría')
+            br
+            br
+    br
+    br

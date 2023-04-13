@@ -22,7 +22,7 @@ router.all('/', function (req, res, next) {
         RunQuery(sqlStr, function (products) {
             var contextDict = {
                 currentUrl: '/',
-                title: 'Home',
+                title: 'Inicio',
                 categories: categories,
                 featProducts: products,
                 customer: req.user
@@ -33,6 +33,11 @@ router.all('/', function (req, res, next) {
         });
     });
 });
+
+
+
+
+
 
 /* Route Category page. */
 router.route('/cat/')
@@ -61,7 +66,8 @@ router.route('/cat/:catSlug')
                 SELECT Products.*, Categories.CategoryName, Categories.CategorySlug\
                 FROM Products\
                 INNER JOIN Categories\
-                ON Products.CategoryID = Categories.CategoryID';
+                ON Products.CategoryID = Categories.CategoryID\
+                WHERE Feature = 1';
 
             RunQuery(selectQuery, function (products) {
 
@@ -72,7 +78,7 @@ router.route('/cat/:catSlug')
                 RunQuery(selectQuery, function (categories) {
 
                     var contextDict = {
-                        title: 'All products',
+                        title: 'Todos los Productos',
                         products: products,
                         categories: categories,
                         customer: req.user
@@ -82,13 +88,36 @@ router.route('/cat/:catSlug')
                 });
             });
         }
-        else {
+        else if (req.params.catSlug == "buscar"){
+            var sqlStr = '\
+                SELECT Products.* FROM Products WHERE ProductName LIKE \'%' + req.body.buscador + '%\'';
+
+            RunQuery(sqlStr, function (products) {
+
+                sqlStr = '\
+                SELECT *\
+                FROM Categories';
+
+                RunQuery(sqlStr, function (categories) {
+
+                    var contextDict = {
+                        title: 'Resultado de busqueda: ' + req.body.buscador,
+                        products: products,
+                        categories: categories,
+                        customer: req.user,
+                        buscador: req.body.buscador
+                    };
+
+                    res.render('categoryProducts', contextDict);
+                });
+            });
+        } else {
             var sqlStr = '\
                 SELECT Products.*, Categories.CategoryName, Categories.CategorySlug\
                 FROM Products\
                 INNER JOIN Categories\
                 ON Products.CategoryID = Categories.CategoryID\
-                WHERE Categories.CategorySlug = \'' + req.params.catSlug + '\'';
+                WHERE Categories.CategorySlug = \'' + req.params.catSlug + '\' AND Feature = 1';
 
             RunQuery(sqlStr, function (products) {
 
@@ -131,6 +160,14 @@ router.route('/cat/:catSlug/:prodSlug')
         });
     });
 
+router.route('/xd')
+    .all(function (req, res, next) {
+        
+            res.render('xd.html', contextDict);
+       
+    });
+
+    
 router.route('/subscribe')
     .post(function (req, res, next) {
         var sqlStr = '\

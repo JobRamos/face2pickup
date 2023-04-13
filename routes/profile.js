@@ -54,10 +54,6 @@ router.route('/:username/edit')
                 UPDATE Users\
                 SET Fullname = \'' + form.fullName + '\', \
                     Email = \'' + form.email + '\', \
-                    StreetAddress = \'' + form.streetAddress + '\', \
-                    PostCode = \'' + form.postcode + '\', \
-                    City = \'' + form.city + '\', \
-                    Country = \'' + form.country + '\', \
                     Phone = \'' + form.phone + '\' \
                 WHERE UserID = ' + req.user.UserID;
 
@@ -131,9 +127,7 @@ router.route('/:username/orders/:id')
         RunQuery(selectQuery, function (order) {
             //get delivery info
             selectQuery = '\
-                SELECT *\
-                FROM Addresses\
-                WHERE AddressID = ' + order[0].AddressID;
+                SELECT 1';
 
             RunQuery(selectQuery, function (address) {
                 //get order info
@@ -209,8 +203,7 @@ router.route('/:username/addresses/:id/edit')
                     StreetAddress = \'' + form.streetAddress + '\', \
                     PostCode = \'' + form.postcode + '\', \
                     City = \'' + form.city + '\', \
-                    Country = \'' + form.country + '\', \
-                    Phone = \'' + form.phone + '\' \
+                    Country = \'' + form.country + '\' \
                 WHERE AddressID = ' + req.params.id;
 
         RunQuery(updateQuery, function (result) {
@@ -248,8 +241,7 @@ router.route('/:username/addresses/add')
                     \'' + form.streetAddress + '\', \
                     \'' + form.postcode + '\', \
                     \'' + form.city + '\', \
-                    \'' + form.country + '\', \
-                    \'' + form.phone + '\')';
+                    \'' + form.country + '\')';
 
         RunQuery(insertQuery, function (result) {
             res.redirect('/usr/' + req.user.Username + '/addresses/');

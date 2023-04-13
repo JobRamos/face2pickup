@@ -5,6 +5,7 @@ var router = express.Router();
 var database = require('../config/database');
 var RunQuery = database.RunQuery;
 
+
 router.route('/')
     .all(function (req, res, next) {
         var summary = req.session.summary;
@@ -75,6 +76,7 @@ router.route('/:id/update')
         res.redirect('/cart');
     });
 
+
 router.route('/:id/delete')
     .post(function (req, res, next) {
         var cart = req.session.cart;
@@ -88,6 +90,7 @@ router.route('/:id/delete')
 
         res.redirect('/cart');
     });
+
 
 router.route('/:id/add')
     .post(function (req, res, next) {
@@ -153,6 +156,7 @@ router.route('/:id/add')
 
             res.redirect('/cart');
         });
+        
     });
 
 

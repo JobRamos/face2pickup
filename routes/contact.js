@@ -17,10 +17,10 @@ router.route('/')
     })
 
     .post(function(req, res, next){
-        var name = req.body.fullName.replace(/[^\w\s]/gi, '');
+        var name = req.body.fullName;
         var email = req.body.email;
-        var subject = req.body.subject.replace(/[^\w\s]/gi, '');
-        var message = req.body.contactMessage.replace(/[^\w\s]/gi, '');
+        var subject = req.body.subject;
+        var message = req.body.contactMessage;
 
         if (req.user){
             name = req.user.FullName;

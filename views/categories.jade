@@ -5,7 +5,7 @@ block content
         .container
             .row
                 .features_items
-                    h2.title.text-center Product Categories
+                    h2.title.text-center Categorías de productos
                     if categories
                         each category in categories
                             .col-sm-3
@@ -13,5 +13,5 @@ block content
                                     .product-image-wrapper
                                         .single-products
                                             .productinfo.text-center
-                                                img(src='/img/categories/' + category.Image, alt=category.CategoryName)
+                                                img(src=category.Image, alt=category.CategoryName)
                                                 h2=category.CategoryName

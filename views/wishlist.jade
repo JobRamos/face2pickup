@@ -1,0 +1,50 @@
+extends layout
+
+block content
+
+    h2.title.text-center
+                    | Lista de deseos
+
+    table.content-table
+      thead
+        tr
+            td Imagen
+            td Producto        
+            td Precio
+            td Acciones
+      tbody
+            if (wishlist < 1)
+                tr
+                    td(colspan="4", style="text-align: center;")
+                        p= "No se encontraron productos en la Lista de Deseos"
+                        a(class={active: currentUrl === '/'}, href='/')
+                                            | Explorar productos
+            else
+                each item in wishlist
+                    -var quantity = item.quantity;
+                    -var name = item.ProductName;
+                    -var productLink = '/cat/' + item.CategorySlug + '/' + item.ProductSlug;
+                    -var unitPrice = item.ProductPrice;
+                    -var productTotal = item.productTotal;
+                    -var id = item.ProductID;
+                    tr
+                        td.cart_product
+                            a(href=productLink)
+                                img(src=item.Image, alt=name)
+                        td.cart_description
+                            h4
+                                a(href=productLink)= name
+                            p= item.Description
+                        td(style='color: green;').cart_total
+                            p.cart_total_price= ' $' + unitPrice
+                        td.cart_delete
+
+                            form(action='/cart/' + id + '/add', method='POST')
+                                button.btn.btn-default(type='submit' class="btn btn-primary")
+                                    i.fa.fa-shopping-cart
+                                    |          Añadir al Carrito
+
+                            form(action='/wishlist/' + id + '/delete', method='POST')
+                                button.btn.btn-default(type='submit' class="btn btn-danger")
+                                    i.fa.fa-trash-o
+                                    = ' Eliminar'

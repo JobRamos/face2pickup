@@ -1,28 +1,37 @@
 extends admin
 
 block details
-    .table-responsive
-        table.table.table-condensed
-            thead
+
+    table.content-table
+        thead
+            tr
+                th(colspan='5') Historial de Ordenes
+        thead
+            tr
+                td #
+                td Fecha
+                td Estatus actual
+                td Total
+                td    
+
+        tbody
+            each order in orders
                 tr
-                    td #
-                    td Date
-                    td Status
-                    td Total
+                    td= order.OrderID
+                    td= order.OrderDate
+                    td= order.Status
+                    td(style='color: green;')= ' $' + order.Total
                     td
-            tbody
-                each order in orders
-                    tr
-                        td= order.OrderID
-                        td= order.OrderDate
-                        td= order.Status
-                        td= ' $' + order.Total
-                        td
-                            form.dev-form(action='/admin/orders/' + order.OrderID, method='GET')
-                                button.order-btn.btn.btn-default(type='submit')
-                                    i.fa.fa-eye
-                                    = ' View'
-                            form.dev-form(action='/admin/orders/' + order.OrderID + '/update', method='GET')
-                                button.order-btn.btn.btn-default(type='submit')
-                                    i.fa.fa-list
-                                    = ' Update status'
+                        form.dev-form(action='/admin/orders/' + order.OrderID, method='GET')
+                            button.btn.btn-default.order-btn(type='submit' class="btn btn-link")
+                                i.fa.fa-eye
+                                = ' Detalle de orden'
+
+
+                        form.dev-form(action='/admin/orders/' + order.OrderID + '/update', method='GET')
+                            button.order-btn.btn.btn-default(type='submit', class="btn btn-info")
+                                i.fa.fa-list
+                                = ' Actualizar  Estatus'
+
+
+

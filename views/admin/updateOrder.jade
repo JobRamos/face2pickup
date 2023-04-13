@@ -3,15 +3,15 @@ extends admin
 block details
     .row
         .col-sm-8
-            h5 Order Information
+            h5 Información de la orden
                 .table-responsive.cart_info
-                    table.table.table-condensed
+                    table.content-table
                         thead
                             tr.cart_menu
                                 td.image
-                                td.description Product
-                                td.price Unit Price
-                                td.quantity Quantity
+                                td.description Producto
+                                td.price Precio Unitario
+                                td.quantity Cantidad
                                 td.total Total
                         tbody
                             each product in products
@@ -23,7 +23,7 @@ block details
                                 tr
                                     td.cart_product
                                         a(href=productLink)
-                                            img(src='/img/products/' + product.Image, alt=name)
+                                            img(src=product.Image, alt=name)
                                     td.cart_description
                                         h4
                                             a(href=productLink)= name
@@ -34,32 +34,11 @@ block details
                                         p=quantity
                                     td.cart_total
                                         p.cart_total_price= ' $' + productTotal
-        .col-sm-4
-            .table-responsive.cart_info
-                table.table.table-condensed.total-result
-                    thead
-                        tr.cart_menu
-                            td(colspan=2) Delivery Address
-                    tbody
-                        tr
-                            td Fullname
-                            td= address.FullName
-                        tr
-                            td Address
-                            td= address.StreetAddress
-                        tr
-                            td
-                            td= address.PostCode + ' ' + address.City
-                        tr
-                            td
-                            td= address.Country
-                        tr
-                            td Tel
-                            td= address.Phone
+               
 
     .row
         .col-sm-6
-            h3= 'Update Status Order #' + order.OrderID
+            h3= 'Actualizar Estatus de Orden #' + order.OrderID
             form(id='updateStatus', action='/admin//orders/' + order.OrderID + '/update', method='POST')
                 select(id='status', name='status')
                     option(value='Order Received', selected) Order Received
@@ -67,28 +46,23 @@ block details
                     option(value='Processed') Processed
                     option(value='Delivered') Delivered
                 br
-                button.btn.btn-default(type='submit') Submit
+                button.btn.btn-default(type='submit') Actualizar estatus
         .col-sm-6
             .table-responsive.cart_info
-            table.table.table-condensed.total-result
-                thead
-                    tr.cart_menu
-                        td(colspan=2) Order Summary
+                table.content-table
+                    thead
+                        tr.cart_menu
+                            td(colspan=2) Resumen de orden
 
-                tbody
-                    tr
-                        td Sub Total
-                        td= ' $' + order.SubTotal
-                    tr
-                        td Discount
-                        td= ' $' + order.Discount
-                    tr.shipping-cost
-                        td Shipping Cost
-                        if order.ShippingFee == 0
-                            td Free
-                        else
-                            td= ' $' + order.ShippingFee
-                    tr
-                        td Total
-                        td
-                            span= ' $' + order.Total
+                    tbody
+                        tr
+                            td Sub Total
+                            td= ' $' + order.SubTotal
+                        tr
+                            td Descuento
+                            td= ' $' + order.Discount
+                        
+                        tr
+                            td Total
+                            td
+                                span= ' $' + order.Total

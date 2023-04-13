@@ -2,30 +2,50 @@ extends info
 
 block details
 
-    h3 Delivery Addresses
-    each address in addresses
-        .col-sm-4
-            h4= address.FullName
-            //p= address.Email
-            p
-                span= address.StreetAddress
-                br
-                span= address.PostCode + ' ' + address.City
-                br
-                span= address.Country
-            p= 'Tel: ' + address.Phone
-
-            form.dev-form(action='/usr/' + customer.Username + '/addresses/' + address.AddressID + '/edit', method='GET')
-                button.btn.btn-default(type='submit')
-                    i.fa.fa-edit
-                    =' Edit'
-
-            form.dev-form(action='/usr/' + customer.Username + '/addresses/' + address.AddressID + '/delete', method='POST')
-                button.btn.btn-default(type='submit')
-                    i.fa.fa-trash-o
-                    = ' Delete'
-
     form(action='/usr/' + customer.Username + '/addresses/add', method='GET')
-        button.btn.btn-default(type='submit')
+        button.btn.btn-default(type='submit' class="btn btn-success")
             i.fa.fa-plus
-            = ' Add new address'
+            = ' Añadir un nuevo método de pago'
+    br
+
+    table.content-table
+        thead
+            tr
+                th(colspan='7') Métodos de pago
+        thead
+            tr
+                td Nombre del titular
+                td Número de la tarjeta
+                td Mes de expiración
+                td Año de expiración 
+                td CVV
+                td
+
+        tbody
+            if (addresses < 1)
+                tr
+                    td
+                    td(colspan="3", style="text-align: center;")
+                        p= "No se encontraron métodos de pago registrados"
+            else
+                
+                each address in addresses
+                    tr
+                        td= address.FullName
+                        td= address.StreetAddress
+                        td= address.PostCode
+                        td= address.City
+                        td= "***"
+                        //- td= address.Country
+                        td
+                            form.dev-form(action='/usr/' + customer.Username + '/addresses/' + address.AddressID + '/edit', method='GET')
+                                button.btn.btn-default(type='submit' class="btn btn-info")
+                                    i.fa.fa-edit
+                                    =' Editar'
+                            
+                            form.dev-form(action='/usr/' + customer.Username + '/addresses/' + address.AddressID + '/delete', method='POST')
+                                button.btn.btn-default(type='submit' class="btn btn-danger")
+                                    i.fa.fa-trash-o
+                                    = ' Eliminar'
+
+

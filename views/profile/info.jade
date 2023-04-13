@@ -5,7 +5,8 @@ block content
         .container
             .row
                 h2.title.text-center
-                    =title
+                    i.fa.fa-user
+                    |  Configuración
                 //title here. no duplicate
                 //if navList
                 .col-sm-3
@@ -15,15 +16,12 @@ block content
                             .panel.panel-default
                                 .panel-heading
                                     h4.panel-title
-                                        a(href='/usr/' + customer.Username) Personal Info
+                                        a(href='/usr/' + customer.Username) Información personal
                             .panel.panel-default
                                 .panel-heading
                                     h4.panel-title
-                                        a(href='/usr/' + customer.Username + '/orders') Orders
-                            .panel.panel-default
-                                .panel-heading
-                                    h4.panel-title
-                                        a(href='/usr/' + customer.Username + '/addresses') Delivery Addresses
+                                        a(href='/usr/' + customer.Username + '/orders') Ordenes
+                            
                     ///nav-bar
                 .col-sm-9
                     .blog-post-area

@@ -40,7 +40,7 @@ router.route('/cat')
 
         RunQuery(sqlStr, function (categories) {
             var contextDict = {
-                title: 'Admin - Categories',
+                title: 'Admin - Categoría',
                 categories: categories,
                 customer: req.user
             };
@@ -59,7 +59,7 @@ router.route('/cat/:id/edit')
 
         RunQuery(sqlStr, function (category) {
             var contextDict = {
-                title: 'Admin - Edit Category',
+                title: 'Admin - Editar Categoría',
                 category: category[0],
                 customer: req.user
             };
@@ -73,7 +73,9 @@ router.route('/cat/:id/edit')
         UPDATE Categories\
         SET CategoryName = \'' + req.body.name + '\', \
             Description = \'' + req.body.description + '\', \
-            CategorySlug = \'' + slug(req.body.name) + '\' ' +
+            CategorySlug = \'' + slug(req.body.name) + '\', \
+            Image = \'' + req.body.image + '\' ' +
+            
                 /*Image = name.png\*/
             'WHERE CategoryID = ' + req.params.id;
 
@@ -96,7 +98,7 @@ router.route('/cat/:id/delete')
 router.route('/cat/add')
     .get(isAdmin, function (req, res, next) {
         var contextDict = {
-            title: 'Admin - Add Category',
+            title: 'Admin - Añadir Categoría',
             customer: req.user
         };
 
@@ -109,7 +111,7 @@ router.route('/cat/add')
         VALUES (null, \'' + req.body.name + '\', \
             \'' + req.body.description + '\', \
             \'' + slug(req.body.name) + '\', \
-            \'' + slug(req.body.name) + '.png\')'
+            \'' + req.body.image + '\')'
         /*Image = name.png\*/
             ;
 
@@ -129,7 +131,7 @@ router.route('/products')
         RunQuery(sqlStr, function (products) {
 
             var contextDict = {
-                title: 'Admin - Products',
+                title: 'Admin - Productos',
                 products: products,
                 customer: req.user
             };
@@ -156,7 +158,7 @@ router.route('/products/:id/edit')
 
             RunQuery(sqlStr, function (categories) {
                 var contextDict = {
-                    title: 'Admin - Edit Product',
+                    title: 'Admin - Editar Producto',
                     product: product[0],
                     categories: categories,
                     customer: req.user
@@ -176,6 +178,7 @@ router.route('/products/:id/edit')
             UnitsInStock = ' + req.body.unit + ', \
             Description = \'' + req.body.description + '\', \
             ManufactureYear = ' + req.body.year + ', \
+            Image = \'' + req.body.image + '\', \
             ProductSlug = \'' + slug(req.body.name) + '\', ' +
                 /*Image = name.png\*/
             'Feature = ' + req.body.feature + ' \
@@ -225,11 +228,13 @@ router.route('/products/add')
                 + req.body.unit + ', \
             \'' + req.body.description + '\', '
                 + req.body.year + ', \
-            \'' + slug(req.body.name) + '.png\', \
+            \'' + req.body.image + '\', \
             \'' + slug(req.body.name) + '\', '
                 + req.body.feature + ')'
         /*Image = name.png\*/
             ;
+
+            console.log(sqlStr);
 
         RunQuery(sqlStr, function (category) {
             res.redirect('/admin/products');
@@ -246,7 +251,7 @@ router.route('/orders')
         RunQuery(selectQuery, function (orders) {
 
             var contextDict = {
-                title: 'Admin - Orders',
+                title: 'Admin - Ordenes',
                 customer: req.user,
                 orders: orders
             };
@@ -273,9 +278,7 @@ router.route('/orders/:id')
             RunQuery(selectQuery, function (orderCustomer) {
                 //get delivery info
                 selectQuery = '\
-                SELECT *\
-                FROM Addresses\
-                WHERE AddressID = ' + order[0].AddressID;
+                SELECT 1';
 
                 RunQuery(selectQuery, function (address) {
                     //get order info
@@ -295,11 +298,10 @@ router.route('/orders/:id')
                         //get order info
 
                         var contextDict = {
-                            title: 'Admin - Orders',
+                            title: 'Admin - Ordenes',
                             customer: req.user,
                             order: order[0],
                             orderCustomer: orderCustomer[0],
-                            address: address[0],
                             products: products
                         };
 
@@ -321,9 +323,7 @@ router.route('/orders/:id/update')
         RunQuery(selectQuery, function (order) {
 
             selectQuery = '\
-                SELECT *\
-                FROM Addresses\
-                WHERE AddressID = ' + order[0].AddressID;
+                SELECT 1';
 
             RunQuery(selectQuery, function (address) {
 
@@ -341,10 +341,9 @@ router.route('/orders/:id/update')
 
                 RunQuery(selectQuery, function (products) {
                     var contextDict = {
-                        title: 'Admin - Update Status Order ' + req.params.id,
+                        title: 'Admin - Actualizar Estatus de Orden ' + req.params.id,
                         customer: req.user,
                         order: order[0],
-                        address: address[0],
                         products: products
                     };
 
@@ -376,7 +375,7 @@ router.route('/customers')
         RunQuery(selectQuery, function (customers) {
 
             var contextDict = {
-                title: 'Admin - Customers',
+                title: 'Admin - Usuarios',
                 customer: req.user,
                 customers: customers
             };

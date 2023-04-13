@@ -4,17 +4,16 @@ html
         //metadata
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
-        meta(name='description', content='aStore Online')
-        meta(name='author', content='aStore. All rights Reserved')
+        meta(name='description', content='Iocus')
+        meta(name='author', content='Iocus. Todos los Derechos Reservados')
         //title
-        title= title + ' | E-commerce'
+        title=  'Iocus | ' + title
         //stylesheet
         link(rel='stylesheet', href='/css/bootstrap.min.css')
         link(rel='stylesheet', href='/css/font-awesome.min.css')
         link(rel='stylesheet', href='/css/main.css')
-        link(rel='stylesheet', href='/css/responsive.css')
         //favicon
-        link(rel='shortcut icon', href='/img/ecommerce.png')
+        link(rel='shortcut icon', href='/img/iocus-5.png')
         link(rel='apple-touch-icon-precomposed', sizes='144x144', href='/img/ico/apple-touch-icon-144-precomposed.png')
         link(rel='apple-touch-icon-precomposed', sizes='114x114', href='/img/ico/apple-touch-icon-114-precomposed.png')
         link(rel='apple-touch-icon-precomposed', sizes='72x72', href='/img/ico/apple-touch-icon-72-precomposed.png')
@@ -22,17 +21,23 @@ html
     body
         //header
         header#header
+               
             //header_top
             .header_top
                 .container
                     .row
                         .col-sm-6
-                            .contactinfo
+                            a(href='/')
+                                    img(src='/img/iocus-5.png', alt='Iocus Logo')
                                 
                         .col-sm-6
                             .shop-menu.pull-right
                                 ul.nav.navbar-nav
-                                    -var orderCus = 'Account'
+                                    li
+                                        a(href='/wishlist')
+                                            i.fa.fa-heart
+                                            |  Lista de Deseos
+                                    -var orderCus = 'Iniciar Sesión'
                                     -var link = '/sign-in'
                                     if customer
                                         -orderCus=customer.FullName
@@ -44,7 +49,7 @@ html
                                     li
                                         a(href='/cart')
                                             i.fa.fa-shopping-cart
-                                            |  Cart
+                                            |  Carrito
                                     //li
                                     //    a(href='/checkout')
                                     //        i.fa.fa-money
@@ -56,40 +61,23 @@ html
                                                 |  Logout
             ///header_top
 
-            //header-middle
-            .header-middle
-                .container
-                    .row
-                        .col-sm-4
-                            .logo.pull-left
-                                a(href='/')
-                                    img(src='/img/ecommerce4.png', alt='ecommerce Logo')
-                        .col-sm-8
 
-            ///header-middle
+            .headerxd
+                a(href='/')
+                    img(src='/img/iocus-8.png', alt='Iocus Logo')
 
-            //header-bottom
-            .header-bottom
-                .container
-                    .row
-                        .col-sm-9
-                            .navbar-header
-                                button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
-                                    span.sr-only Toggle navigation
-                                    span.icon-bar
-                                    span.icon-bar
-                                    span.icon-bar
-                            .mainmenu.pull-left
-                                ul.nav.navbar-nav.collapse.navbar-collapse
-                                    li
-                                        a(class={active: currentUrl === '/'}, href='/')
-                                            | Home
-                                    li
-                                        a(class={active: currentUrl === '/cat/all'}, href='/cat/all')
-                                            | Products
-                                    li
-                                        a(class={active: currentUrl === '/contact-us'}, href='/contact-us') Contact Us
-                        .col-sm-3
+                .header-center
+                    form(id='sign-in', action='/cat/buscar', method='POST')
+                        input.search-input(type='text', name='buscador', value=buscador, placeholder='Buscar', style="color: black;", class="searchTerm")
+                        button(type='submit', class="searchButton")
+                            i.fa.fa-search
+
+                .header-right
+                    a.active(class={active: currentUrl === '/'}, href='/') Inicio
+                    a(class={active: currentUrl === '/cat/all'}, href='/cat/all') Productos
+                    a(class={active: currentUrl === '/contact-us'}, href='/contact-us') Contacto
+
+
             ///header-bottom
         ///header
 
@@ -122,28 +110,29 @@ html
                         .col-sm-2
                             .companyinfo
                                 h2
-                                    span E
-                                    | commerce Store
+                                    span I
+                                    | ocus Store
                                 p
-                                    | Ecommerce is a leading online retailer
-                                    | committed to becoming the most loved
-                                    | and trusted marketplace on the web.
+                                    | Iocus es la tienda online 
+                                    | comprometida a convertirse en el portal
+                                    | de videojuegos mas usado en el mundo.
                         .col-sm-3.col-sm-offset-1
                             .single-widget
                                 h2 NewsLetter
                                 form.searchform(action='/subscribe', method='POST')
-                                    input(type='text', name='email', placeholder='Your email address')
+                                    input(type='text', name='email', placeholder='Email')
                                     button.btn.btn-default(type='submit')
                                         i.fa.fa-arrow-circle-o-right
                                     p
-                                        | Get the most recent updates, exclusive deals
-                                        | you wont find anywhere else straight to your
-                                        | inbox and be updated your self...
+                                        | Obtenga las actualizaciones más recientes, ofertas exclusivas que 
+                                        | no encontrará en ningún otro lugar directamente en 
+                                        | su bandeja de entrada y actualícese usted mismo.
             .footer-bottom
                 .container
                     .row
-                        p.pull-left &copy 2022 Ecommerce Website. All rights reserved.
+                        p.pull-left &copy 2023 Iocus Website. Todos los Derechos Reservados.
         ///Footer
+        script(src='https://js.stripe.com/v3/')
         script(src='/js/jquery-2.1.4.min.js')
         script(src='/js/bootstrap.min.js')
         script(src='/js/jquery.scrollUp.min.js')

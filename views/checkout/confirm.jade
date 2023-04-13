@@ -3,18 +3,24 @@ extends ../layout
 block content
     section#cart_items
         .container
-            .review-payment
-                h2= title
+        
+            h2= title
+            h2= "Tu orden ha sido confirmada con éxito"
+            h2= "Puedes visualizar el estatus de tu orden en el apartado Ordenes dentro de tu perfil"
+            form(action='/usr/' + customer.Username + '/orders/' + order.OrderID, method='GET')
+                        button.btn.btn-default.order-btn(type='submit' class="btn btn-link")
+                            i.fa.fa-eye
+                            = ' Detalle de orden'
             .row
                 .col-sm-8
                     .table-responsive.cart_info
-                        table.table.table-condensed
+                        table.content-table
                             thead
                                 tr.cart_menu
                                     td.image
-                                    td.description Product
-                                    td.price Unit Price
-                                    td.quantity Quantity
+                                    td.description Producto
+                                    td.price Precio Unitario
+                                    td.quantity Cantidad
                                     td.total Total
                             tbody
                                 each product in products
@@ -26,7 +32,7 @@ block content
                                     tr
                                         td.cart_product
                                             a(href=productLink)
-                                                img(src='/img/products/' + product.Image, alt=name)
+                                                img(src=product.Image, alt=name)
                                         td.cart_description
                                             h4
                                                 a(href=productLink)= name
@@ -39,51 +45,24 @@ block content
                                             p.cart_total_price= ' $' + productTotal
 
                 .col-sm-4
+                    
                     .table-responsive.cart_info
-                        table.table.table-condensed.dev-table
+                        table.content-table
                             thead
                                 tr.cart_menu
-                                    td(colspan=2) Delivery Address
-
-                            tbody
-                                tr
-                                    td Fullname
-                                    td= address.FullName
-                                tr
-                                    td Address
-                                    td= address.StreetAddress
-                                tr
-                                    td
-                                    td= address.PostCode + ' ' + address.City
-                                tr
-                                    td
-                                    td= address.Country
-                                tr
-                                    td Tel
-                                    td= address.Phone
-
-                    .table-responsive.cart_info
-                        table.table.table-condensed.dev-table
-                            thead
-                                tr.cart_menu
-                                    td(colspan=2) Summary
+                                    td(colspan=2) Resumen de compra
 
                             tbody
                                 tr
                                     td Sub Total
-                                    td= ' $' + order.SubTotal
+                                    td(style='color: green;')= ' $' + order.SubTotal
                                 tr
-                                    td Discount
-                                    td= ' $' + order.Discount
-                                tr.shipping-cost
-                                    td Shipping Cost
-                                    if order.ShippingFee == 0
-                                        td Free
-                                    else
-                                        td= ' $' + order.ShippingFee
+                                    td Descuento
+                                    td(style='color: red;')= ' $' + order.Discount
+                                
                                 tr
                                     td Total
-                                    td
-                                        span= ' $' + order.Total
+                                        td(style='color: green;')
+                                            span= ' $' + order.Total
 
     // /#cart_items
