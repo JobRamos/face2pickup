@@ -13,11 +13,10 @@ router.all('/', function (req, res, next) {
 
     RunQuery(sqlStr, function (categories) {
         sqlStr = '\
-            SELECT Products.*, Categories.CategoryName, Categories.CategorySlug\
+            SELECT Products.*, Categories.CategoryName, Categories.CategoryName\
             FROM Products\
             INNER JOIN Categories\
-            ON Products.CategoryID = Categories.CategoryID\
-            WHERE Feature = 1';
+            ON Products.CategoryID = Categories.CategoryID';
 
         RunQuery(sqlStr, function (products) {
             var contextDict = {
@@ -29,7 +28,7 @@ router.all('/', function (req, res, next) {
             };
 
             //isLoggedIn(req, contextDict);
-            res.render('index', contextDict);
+            res.render('sign-in', contextDict);
         });
     });
 });
@@ -63,11 +62,10 @@ router.route('/cat/:catSlug')
     .all(function (req, res, next) {
         if (req.params.catSlug == "all") {
             var selectQuery = '\
-                SELECT Products.*, Categories.CategoryName, Categories.CategorySlug\
+                SELECT Products.*, Categories.CategoryName, Categories.CategoryName\
                 FROM Products\
                 INNER JOIN Categories\
-                ON Products.CategoryID = Categories.CategoryID\
-                WHERE Feature = 1';
+                ON Products.CategoryID = Categories.CategoryID';
 
             RunQuery(selectQuery, function (products) {
 
@@ -90,7 +88,7 @@ router.route('/cat/:catSlug')
         }
         else if (req.params.catSlug == "buscar"){
             var sqlStr = '\
-                SELECT Products.* FROM Products WHERE ProductName LIKE \'%' + req.body.buscador + '%\'';
+                SELECT Products.* FROM Products';
 
             RunQuery(sqlStr, function (products) {
 
@@ -113,11 +111,11 @@ router.route('/cat/:catSlug')
             });
         } else {
             var sqlStr = '\
-                SELECT Products.*, Categories.CategoryName, Categories.CategorySlug\
+                SELECT Products.*, Categories.CategoryName, Categories.CategoryName\
                 FROM Products\
                 INNER JOIN Categories\
                 ON Products.CategoryID = Categories.CategoryID\
-                WHERE Categories.CategorySlug = \'' + req.params.catSlug + '\' AND Feature = 1';
+                WHERE Categories.CategoryName = \'' + req.params.catSlug + '\'';
 
             RunQuery(sqlStr, function (products) {
 

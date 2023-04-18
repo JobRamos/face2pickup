@@ -5,17 +5,10 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,800,300,600,700);
 @import url(http://fonts.googleapis.com/css?family=Abel);
 
-/* colores del logo */
-.paleta-iocus {
-    --cranberry: #dc54a4;
-    --fuchsia-pink: #c354b4;
-    --medium-purple: #7a54d7;
-    --french-lilac: #e2d6f3;
-    --amethyst: #a454c4;
-    --biloba-flower: #ad9cec;
-    --dull-lavender: #9c89e4;
-    --light-wisteria: #d29fd9;
-    --medium-purple: #9676de;
+/* colores  */
+.paleta-escuela {
+    --blue: #0095ff;
+    --blue2: #3280b8;
     }
 
 
@@ -24,103 +17,11 @@ body {
     position: relative;
     font-weight: 400;
     background-color: #191919;
-    background: rgb(0,0,0);
-    background: linear-gradient(180deg, rgba(0,0,0,1) 25%, rgba(122,84,215,1) 79%, rgba(195,84,180,1) 96%, rgba(226,214,243,1) 100%);
-    color: #FFFFFF;
+    background: white;
+    color: black;
+    height: 100%;
 }
 
-
-/* header y buscador */
-.headerxd {
-    overflow: hidden;
-    background: rgb(87,82,93);
-    background: linear-gradient(180deg, rgba(87,82,93,1) 0%, rgba(44,40,48,1) 7%, rgba(25,24,27,1) 17%, rgba(0,0,0,1) 37%);
-    padding: 20px 10px;
-  }
-
-.headerxd img{
-    height: 100px;
-  }
-  
-  /* Style the header links */
-  .headerxd a {
-    float: left;
-    color: black;
-    color: white;
-    text-align: center;
-    padding: 12px;
-    text-decoration: none;
-    font-size: 20px;
-    line-height: 25px;
-    border-radius: 4px;
-  }
-
-  /* Change the background color on mouse-over */
-  .headerxd a:hover {
-    color: #dc54a4;
-  }
-  
-  /* Style the active/current link*/
-  .headerxd a.active {
-    background-color: #7a54d7;
-    color: white;
-  }
-  
-  /* Float the link section to the right */
-  .header-right {
-    float: right;
-    margin-right: 50px;
-    margin-top: -7px;
-  }
-
-  .header-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    
-  }
-
-  .header-center input {
-    width: 550px;
-    height: 40px;
-    background: white;
-    border-radius: 100px;
-    padding: 0 3.5rem 0 1.5rem;
-    font-size: 15px;
-    color: #7a54d7;
-  }
- 
-
-.header-center button{
-    width: 3.5rem;
-    height: 2.8rem;
-    margin-left: -3.5rem;
-    background: none;
-    border: none;
-    outline: none;
-  }
-
-  .headerxd .header-center input {
-    transform: translate(-180px, 45px);
-  } 
-
-  .headerxd .header-center button {
-    transform: translate(-190px, 45px);
-  } 
-  
-  
-  /* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
-  @media screen and (max-width: 500px) {
-    .headerxd a {
-      float: none;
-      display: block;
-      text-align: left;
-    }
-    .header-right {
-      float: none;
-    }
-  }
 
 
 
@@ -139,7 +40,7 @@ body {
 }
 
 .content-table thead tr {
-    background-color: #7a54d7;
+    background-color: #0095ff;
     color: #ffffff;
     text-align: left;
     font-weight: bold;
@@ -159,7 +60,7 @@ body {
 }
 
 .content-table tbody tr:last-of-type {
-    border-bottom: 2px solid #7a54d7;
+    border-bottom: 2px solid #0095ff;
 }
 
 .content-table tbody tr.active-row {
@@ -178,7 +79,8 @@ body {
     height: auto;
     background: white;
     border-radius: 10px;
-    box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
   }
 
 .center-login h1{
@@ -228,13 +130,13 @@ body {
     left: 0;
     width: 0%;
     height: 2px;
-    background: #7a54d7;
+    background: #3280b8;
     transition: .5s;
   }
   .txt_field input:focus ~ label,
   .txt_field input:valid ~ label{
     top: -5px;
-    color: #9676de;
+    color: #3280b8;
   }
   .txt_field input:focus ~ span::before,
   .txt_field input:valid ~ span::before{
@@ -247,13 +149,13 @@ body {
   }
   .pass:hover{
     text-decoration: underline;
-    color: #dc54a4;
+    color: #3280b8;
   }
   input[type="submit"]{
     width: 100%;
     height: 50px;
     border: 1px solid;
-    background: #7a54d7;
+    background: #3280b8;
     border-radius: 25px;
     font-size: 18px;
     color: #e9f4fb;
@@ -262,7 +164,7 @@ body {
     outline: none;
   }
   input[type="submit"]:hover{
-    border-color: #7a54d7;
+    border-color: #3280b8;
     transition: .5s;
   }
   .signup_link{
@@ -272,7 +174,7 @@ body {
     color: #666666;
   }
   .signup_link a{
-    color: #7a54d7;
+    color: #3280b8;
     text-decoration: none;
   }
   .signup_link a:hover{
@@ -336,10 +238,6 @@ body {
 	width: 100%;
 	max-width: 1000px;
 	text-align: center;
-}
-.iocus-banner{
-	width: 100%;
-    max-width: 300px;
 }   
 
 
@@ -370,7 +268,7 @@ a {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: "Google Sans",Roboto,Arial,sans-serif;
-    color: #FFFFFF;
+    color: black;
 }
 .cat{
     margin-left: 0;
@@ -383,7 +281,7 @@ h2{
 
 
 h1 span{
-    color: #7a54d7;
+    color: #3280b8;
 }
 
 .btn:hover,
@@ -400,7 +298,7 @@ a#scrollUp {
     bottom: 0;
     right: 10px;
     padding: 5px 10px;
-    background: #7a54d7;
+    background: #3280b8;
     color: #FFF;
     -webkit-animation: bounce 2s ease infinite;
     animation: bounce 2s ease infinite;
@@ -416,17 +314,20 @@ a#scrollUp i {
 
 .header_top {
     background: #FFFFFF;
-    height: 44px;
+    height: 100px;
     
 }
 
 .header_top .container .row img{
-    height: 40px;
+    height: 60px;
+    margin-top: 18px;
+    position: absolute;
     /* margin-left: -180px; */
 }
 
 .header_top .container .row li a{
-    font-size: 16px;
+    margin-top: 15px;
+    font-size: 18px;
 }
 
 
@@ -513,13 +414,13 @@ a#scrollUp i {
 }
 
 .usa:hover {
-    background: #7a54d7;
+    background: #3280b8;
     color: #fff;
-    border-color: #7a54d7;
+    border-color: #3280b8;
 }
 
 .usa:active, .usa.active {
-    background: none repeat scroll 0 0 #7a54d7;
+    background: none repeat scroll 0 0 #3280b8;
     box-shadow: inherit;
     outline: 0 none;
 }
@@ -530,7 +431,7 @@ a#scrollUp i {
 }
 
 .dropdown-menu li a:hover, .dropdown-menu li a:focus {
-    background-color: #7a54d7;
+    background-color: #3280b8;
     color: #FFFFFF;
     font-family: "Google Sans",Roboto,Arial,sans-serif;
     text-decoration: none;
@@ -561,7 +462,7 @@ a#scrollUp i {
 }
 
 .shop-menu ul li a:hover {
-    color: #7a54d7;
+    color: #3280b8;
     background: transparent;
 }
 
@@ -599,7 +500,7 @@ a#scrollUp i {
 .mainmenu ul li a:hover, .mainmenu ul li a.active, .shop-menu ul li a.active {
     background: none;
     font-weight: 100;
-    color:#c354b4;
+    color:#3280b8;
 }
 
 .search_box input {
@@ -650,7 +551,7 @@ ul.sub-menu {
 }
 
 .dropdown ul.sub-menu li .active {
-    color: #7a54d7;
+    color: #3280b8;
     padding-left: 0;
 }
 
@@ -667,7 +568,7 @@ ul.sub-menu {
 }
 
 .navbar-nav li ul.sub-menu li a:hover {
-    color: #7a54d7;
+    color: #3280b8;
 }
 
 .fa-angle-down {
@@ -694,6 +595,7 @@ ul.sub-menu {
 
 #footer {
     background: #F0F0E9;
+    
 }
 
 .footer-top .container {
@@ -708,11 +610,11 @@ ul.sub-menu {
 }
 
 .companyinfo h2 span {
-    color: #7a54d7;
+    color: #3280b8;
 }
 
 .companyinfo p {
-    color: #7a54d7;
+    color: #3280b8;
     font-family: "Google Sans",Roboto,Arial,sans-serif;
     font-size: 12px;
     font-weight: 300;
@@ -747,7 +649,7 @@ ul.sub-menu {
     top: 0;
     width: 100%;
     height: 61px;
-    background: #7a54d7;
+    background: #3280b8;
     border-radius: 3px;
     color: #FFF;
     font-size: 20px;
@@ -797,7 +699,7 @@ ul.sub-menu {
     font-size: 35px;
 }
 
-.single-promo:hover {color: #fff;background: #7a54d7;}
+.single-promo:hover {color: #fff;background: #3280b8;}
 .promo1 { background:#85accb;}
 .promo2 { background:#85accb;}
 .promo3 { background:#85accb;}
@@ -871,7 +773,7 @@ ul.sub-menu {
 
 .single-widget ul li a:hover {
     background: none;
-    color: #7a54d7;
+    color: #3280b8;
 }
 
 .single-widget .fa-facebook{
@@ -899,7 +801,7 @@ ul.sub-menu {
 }
 
 .searchform button {
-    background: #7a54d7;
+    background: #3280b8;
     border: medium none;
     border-radius: 0;
     margin-left: -5px;
@@ -914,7 +816,7 @@ ul.sub-menu {
 
 .searchform button:hover,
 .searchform button:focus {
-    background-color: #7a54d7;
+    background-color: #3280b8;
 }
 
 .searchform p {
@@ -928,6 +830,7 @@ ul.sub-menu {
 .footer-bottom {
     background: #D6D6D0;
     padding-top: 10px;
+    
 }
 
 .footer-bottom p {
@@ -938,7 +841,7 @@ ul.sub-menu {
 }
 
 .footer-bottom p span a {
-    color: #7a54d7;
+    color: #3280b8;
     font-style: italic;
     text-decoration: underline;
 }
@@ -956,7 +859,7 @@ ul.sub-menu {
 }
 
 .carousel-indicators li.active {
-    background: #7a54d7;
+    background: #3280b8;
 }
 
 .item {
@@ -981,7 +884,7 @@ ul.sub-menu {
 }
 
 .item h1 span {
-    color: #7a54d7;
+    color: #3280b8;
 }
 
 .item h2 {
@@ -1001,7 +904,7 @@ ul.sub-menu {
 }
 
 .get {
-    background: #7a54d7;
+    background: #3280b8;
     border: 0 none;
     border-radius: 0;
     color: #FFFFFF;
@@ -1012,7 +915,7 @@ ul.sub-menu {
 }
 
 .item button:hover {
-    background: #7a54d7;
+    background: #3280b8;
 }
 
 .control-carousel {
@@ -1023,21 +926,17 @@ ul.sub-menu {
 }
 
 .control-carousel:hover {
-    color: #7a54d7;
+    color: #3280b8;
 }
 
 .right {
     right: 0;
 }
 
-.category-products {
-    margin-bottom: 35px;
-    padding-bottom: 20px;
-    padding-top: 15px;
-}
+
 
 .left-sidebar h2, .brands_products h2 {
-    color: #7a54d7;
+    color: #3280b8;
     font-family: "Google Sans",Roboto,Arial,sans-serif;
     font-size: 18px;
     font-weight: 700;
@@ -1061,25 +960,27 @@ ul.sub-menu {
 }
 
 
-
-.category-products .panel-default .panel-heading {
-    background-color: #9c89e4;
-    border: 0 none;
-    color: #FFFFFF;
-    padding: 5px 20px;
+.category-products {
+    margin-bottom: 35px;
+    padding-bottom: 20px;
+    /* padding-top: 40px; */
 }
 
+.category-products .panel-default .panel-heading {
+    background-color: #3280b8;
+}
+
+
+
 .category-products .panel-default .panel-heading .panel-title a {
-    color: #FFFFFF;
+    color: white;
     font-family: "Google Sans",Roboto,Arial,sans-serif;
     font-size: 14px;
     text-decoration: none;
     text-transform: uppercase;
 }
 
-.panel-group .panel-heading + .panel-collapse .panel-body {
-    border-top: 0 none;
-}
+
 
 .category-products .badge {
     background: none;
@@ -1095,6 +996,11 @@ ul.sub-menu {
     vertical-align: baseline;
     white-space: nowrap;
 }
+
+.panel-group .panel-heading + .panel-collapse .panel-body {
+    border-top: 0 none;
+}
+
 
 .panel-body ul {
     padding-left: 20px;
@@ -1151,7 +1057,7 @@ ul.sub-menu {
 }
 
 .tooltip-inner {
-    background-color: #7a54d7;
+    background-color: #3280b8;
     border-radius: 4px;
     color: #FFFFFF;
     max-width: 200px;
@@ -1161,7 +1067,7 @@ ul.sub-menu {
 }
 
 .tooltip.top .tooltip-arrow {
-    border-top-color: #7a54d7;
+    border-top-color: #3280b8;
     border-width: 5px 5px 0;
     bottom: 0;
     left: 50%;
@@ -1174,7 +1080,7 @@ ul.sub-menu {
 
 
 h2.title {
-    color: #fff;
+    color: black;
     font-family: "Google Sans",Roboto,Arial,sans-serif;
     font-size: 38px;
     font-weight: 700;
@@ -1252,7 +1158,7 @@ h2.title {
 }
 
 .product-overlay {
-    background: #7a54d7;
+    background: #3280b8;
     top: 0;
     height: 0;
     position: absolute;
@@ -1283,10 +1189,10 @@ h2.title {
 
 
 .add-to-cart {
-    background: #5E5DF0;
+    background: #0095ff;
     border-radius: 999px;
     width: 1000px;
-    box-shadow: #5E5DF0 0 10px 20px -10px;
+    box-shadow: #0095ff 0 10px 20px -10px;
     box-sizing: border-box;
     color: #FFFFFF;
     cursor: pointer;
@@ -1308,14 +1214,14 @@ h2.title {
   
   .add-to-cart:hover {
     background: #F6F9FE;
-    color: #7a54d7;
+    color: #0095ff;
   }
 
   .add-to-wishlist {
-    background: #dc54a4;
+    background: #3280b8;
     border-radius: 999px;
     width: 1000px;
-    box-shadow: #dc54a4 0 10px 20px -10px;
+    box-shadow: #3280b8 0 10px 20px -10px;
     box-sizing: border-box;
     color: #FFFFFF;
     cursor: pointer;
@@ -1337,7 +1243,7 @@ h2.title {
   
   .add-to-wishlist:hover {
     background: #F6F9FE;
-    color: #dc54a4;
+    color: #3280b8;
   }
 
 
@@ -1366,7 +1272,7 @@ h2.title {
 
 .choose ul li a:hover {
     background: none;
-    color: #7a54d7;
+    color: #3280b8;
 }
 
 .category-tab {
@@ -1375,7 +1281,7 @@ h2.title {
 
 .category-tab ul {
     background: #40403E;
-    border-bottom: 1px solid #7a54d7;
+    border-bottom: 1px solid #3280b8;
     list-style: none outside none;
     margin: 0 0 30px;
     padding: 0;
@@ -1393,7 +1299,7 @@ h2.title {
 }
 
 .category-tab ul li a:hover {
-    background: #7a54d7;
+    background: #3280b8;
     color: #fff;
 }
 
@@ -1402,7 +1308,7 @@ h2.title {
     -moz-border-left-colors: none;
     -moz-border-right-colors: none;
     -moz-border-top-colors: none;
-    background-color: #7a54d7;
+    background-color: #3280b8;
     border: 0;
     color: #FFFFFF;
     cursor: default;
@@ -1431,7 +1337,7 @@ h2.title {
 }
 
 .recommended-item-control i {
-    background: none repeat scroll 0 0 #7a54d7;
+    background: none repeat scroll 0 0 #3280b8;
     color: #FFFFFF;
     font-size: 20px;
     padding: 4px 10px;
@@ -1498,8 +1404,8 @@ h2.title {
 }
 
 .pagination .active a, .pagination .active span, .pagination .active a:hover, .pagination .active span:hover, .pagination .active a:focus, .pagination .active span:focus {
-    background-color: #7a54d7;
-    border-color: #7a54d7;
+    background-color: #3280b8;
+    border-color: #3280b8;
     color: #FFFFFF;
     cursor: default;
     z-index: 2;
@@ -1519,7 +1425,7 @@ h2.title {
 }
 
 .pagination li a:hover {
-    background: #7a54d7;
+    background: #3280b8;
     color: #fff;
 }
 
@@ -1557,7 +1463,7 @@ h2.title {
 }
 
 .view-product h3 {
-    background: #7a54d7;
+    background: #3280b8;
     bottom: 0;
     color: #FFFFFF;
     font-family: "Google Sans",Roboto,Arial,sans-serif;
@@ -1584,7 +1490,7 @@ h2.title {
 }
 
 .item-control i {
-    background: #7a54d7;
+    background: #3280b8;
     color: #FFFFFF;
     font-size: 20px;
     padding: 5px 10px;
@@ -1610,7 +1516,7 @@ h2.title {
 }
 
 .product-information h2 {
-    color: #dc54a4;
+    color: #3280b8;
     font-family: Arial, sans-serif;
     font-weight: bold;
     font-size: 40px;
@@ -1666,7 +1572,7 @@ h2.title {
 }
 
 .cart {
-    background: #7a54d7;
+    background: #3280b8;
     border: 0 none;
     border-radius: 0;
     color: #FFFFFF;
@@ -1710,13 +1616,13 @@ h2.title {
 }
 
 #reviews ul li a i {
-    color: #7a54d7;
+    color: #3280b8;
     padding-right: 8px;
 }
 
 #reviews ul li a:hover {
     background: #fff;
-    color: #7a54d7;
+    color: #3280b8;
 }
 
 #reviews p {
@@ -1757,7 +1663,7 @@ h2.title {
 }
 
 #reviews button {
-    background: #7a54d7;
+    background: #3280b8;
     border: 0 none;
     border-radius: 0;
     color: #FFFFFF;
@@ -1795,7 +1701,7 @@ h2.title {
 }
 
 .content-404 h2 a {
-    background: #7a54d7;
+    background: #3280b8;
     color: #FFFFFF;
     font-family: "Google Sans",Roboto,Arial,sans-serif;
     font-size: 44px;
@@ -1849,7 +1755,7 @@ h2.title {
 }
 
 .login-form form button, .signup-form form button {
-    background: #7a54d7;
+    background: #3280b8;
     border: medium none;
     border-radius: 0;
     color: #FFFFFF;
@@ -1868,7 +1774,7 @@ h2.title {
 }
 
 .or {
-    background: #7a54d7;
+    background: #3280b8;
     border-radius: 40px;
     color: #FFFFFF;
     font-family: "Google Sans",Roboto,Arial,sans-serif;
@@ -1899,7 +1805,7 @@ h2.title {
 }
 
 .breadcrumbs .breadcrumb li a {
-    background: #7a54d7;
+    background: #3280b8;
     color: #FFFFFF;
     padding: 3px 7px;
 }
@@ -1910,7 +1816,7 @@ h2.title {
     width: auto;
     border-width: 8px;
     border-style: solid;
-    border-color: transparent transparent transparent #7a54d7;
+    border-color: transparent transparent transparent #3280b8;
     position: absolute;
     top: 11px;
     left: 70px;
@@ -1923,7 +1829,7 @@ h2.title {
 
 
 #cart_items .cart_info .cart_menu {
-    background: #7a54d7;
+    background: #3280b8;
     color: #fff;
     font-size: 16px;
     font-family: "Google Sans",Roboto,Arial,sans-serif;
@@ -2129,7 +2035,7 @@ input{
     border-radius: 3px;
 }
 input:hover{
-    border:solid 1px #7a54d7;
+    border:solid 1px #3280b8;
 }
 
 
@@ -2142,7 +2048,7 @@ input:hover{
 }
 
 .update, .check_out {
-    background: #7a54d7;
+    background: #3280b8;
     border-radius: 0;
     color: #FFFFFF;
     border: none;
@@ -2203,7 +2109,7 @@ input:hover{
 }
 
 .checkout-options .nav li a {
-    color: #7a54d7;
+    color: #3280b8;
     font-size: 18px;
     font-weight: normal;
     padding: 0
@@ -2217,7 +2123,7 @@ input:hover{
     margin-right: 10px;
     border-radius: 50%;
     padding: 5px;
-    background: #7a54d7;
+    background: #3280b8;
     color: #fff;
     font-size: 14px;
     padding: 2px 3px;
@@ -2244,7 +2150,7 @@ input:hover{
 }
 
 .shopper-info .btn-primary {
-    background: #7a54d7;
+    background: #3280b8;
     border: 0 none;
     border-radius: 3px;
     margin-right: 15px;
@@ -2348,7 +2254,7 @@ input:hover{
 
 .total-result
 .shipping-cost {
-    border-bottom: 1px solid #7a54d7;
+    border-bottom: 1px solid #3280b8;
 }
 
 
@@ -2407,7 +2313,7 @@ input:hover{
 
 .blog-post-area
 .post-meta ul li i {
-    background: #7a54d7;
+    background: #3280b8;
     color: #FFFFFF;
     margin-left: -4px;
     margin-right: 7px;
@@ -2421,7 +2327,7 @@ input:hover{
     position: absolute;
     width: auto;
     height: auto;
-    border-color: transparent transparent transparent #7a54d7;
+    border-color: transparent transparent transparent #3280b8;
     border-width: 4px;
     border-style: solid;
     top: 6px;
@@ -2431,7 +2337,7 @@ input:hover{
 .blog-post-area
 .post-meta ul span {
     float: right;
-    color: #7a54d7
+    color: #3280b8
 }
 
 .post-meta span {
@@ -2439,13 +2345,13 @@ input:hover{
 }
 
 .post-meta span i {
-    color: #7a54d7
+    color: #3280b8
 }
 
 .blog-post-area
 .single-blog-post
 .btn-primary {
-    background: #7a54d7;
+    background: #3280b8;
     border: medium none;
     border-radius: 3px;
     color: #FFFFFF;
@@ -2471,7 +2377,7 @@ input:hover{
 .pagination li a:hover,
 .pagination-area
 .pagination li .active {
-    background: #7a54d7;
+    background: #3280b8;
     color: #fff
 }
 
@@ -2497,7 +2403,7 @@ input:hover{
 
 .pager-area
 .pager li a:hover {
-    background: #7a54d7;
+    background: #3280b8;
     color: #fff
 }
 
@@ -2533,7 +2439,7 @@ input:hover{
 .rating-area
 .ratings .color,
 .rating-area .color {
-    color: #7a54d7
+    color: #3280b8
 }
 
 .rating-area .tag {
@@ -2619,12 +2525,12 @@ input:hover{
 
 .blog-socials ul li a:hover {
     color: #fff;
-    background: #7a54d7
+    background: #3280b8
 }
 
 .media-list .btn-primary,
 .commnets .btn-primary {
-    background: #7a54d7;
+    background: #3280b8;
     border: 0 none;
     border-radius: 0;
     color: #FFFFFF;
@@ -2679,7 +2585,7 @@ input:hover{
 }
 
 .sinlge-post-meta li i {
-    background: #7a54d7;
+    background: #3280b8;
     color: #FFFFFF;
     margin-right: 10px;
     padding: 8px 10px;
@@ -2705,7 +2611,7 @@ input:hover{
 }
 
 .replay-box label {
-    background: #7a54d7;
+    background: #3280b8;
     color: #FFFFFF;
     margin-bottom: 15px;
     padding: 3px 15px;
@@ -2714,7 +2620,7 @@ input:hover{
 }
 
 .replay-box span {
-    color: #7a54d7;
+    color: #3280b8;
     float: right;
     font-weight: 700;
     margin-top: 21px;
@@ -2731,7 +2637,7 @@ input:hover{
 
 .replay-box form input:hover,
 .text-area textarea:hover {
-    border: 1px solid #7a54d7;
+    border: 1px solid #3280b8;
 }
 
 .text-area {
@@ -2751,7 +2657,7 @@ input:hover{
 }
 
 .dev-btn{
-    background: #7a54d7;
+    background: #3280b8;
     color: #fff;
     border:0 none;
     border-radius: 3px;
@@ -2763,7 +2669,7 @@ input:hover{
 }
 
 .dev-btn:hover {
-    background: #7a54d7;
+    background: #3280b8;
     border-radius: 3px;
 }
 
@@ -2772,7 +2678,7 @@ input:hover{
     margin-left: 20px;
 }
 .btn.btn-primary {
-    background: #7a54d7;
+    background: #3280b8;
     border: 0 none;
     border-radius: 3px;
     margin-top: 16px;
@@ -2791,7 +2697,7 @@ input:hover{
     height: auto;
     border-style: solid;
     border-width: 8px;
-    border-color: #7a54d7 transparent transparent transparent;
+    border-color: #3280b8 transparent transparent transparent;
     top: 25px;
     left: 5px
 }
@@ -2845,7 +2751,7 @@ input:hover{
 #contact-page .form-control:focus,
 #contact-page .form-control:hover {
     box-shadow: inherit;
-    border-color: #7a54d7;
+    border-color: #3280b8;
 }
 
 #contact-page .contact-info {
@@ -2896,7 +2802,7 @@ input:hover{
 }
 
 .contact-info .social-networks ul li a:hover {
-    color: #7a54d7;
+    color: #3280b8;
 }
 
 

@@ -31,6 +31,58 @@ router.route('/')
          res.render('admin/admin', contextDict);*/
     });
 
+
+router.route('/padres')
+    .get(isAdmin, function (req, res, next) {
+
+        var sqlStr = '\
+        SELECT *\
+        FROM padres';
+
+        RunQuery(sqlStr, function (padres) {
+            var contextDict = {
+                title: 'Admin - Padres',
+                padres: padres,
+                customer: req.user
+            };
+
+            res.render('admin/padres', contextDict);
+        });
+    });
+
+router.route('/padres/add')
+    .get(isAdmin, function (req, res, next) {
+        var contextDict = {
+            title: 'Admin - Añadir padre de familia',
+            customer: req.user
+        };
+
+        res.render('admin/addPadre', contextDict);
+    })
+
+    .post(isAdmin, function (req, res, next) {
+        var sqlStr = '\
+        INSERT INTO padres\
+        VALUES (null, \'' + req.body.name + '\')'
+        /*Image = name.png\*/
+            ;
+
+        RunQuery(sqlStr, function (category) {
+            res.redirect('/admin/padres');
+        });
+    });
+
+router.route('/padres/:id/delete')
+    .post(isAdmin, function (req, res, next) {
+        sqlStr = '\
+            DELETE FROM padres\
+            WHERE PadreID = ' + req.params.id;
+
+        RunQuery(sqlStr, function (result) {
+            res.redirect('/admin/padres');
+        });
+    });
+
 router.route('/cat')
     .get(isAdmin, function (req, res, next) {
 
@@ -71,10 +123,7 @@ router.route('/cat/:id/edit')
     .post(isAdmin, function (req, res, next) {
         var sqlStr = '\
         UPDATE Categories\
-        SET CategoryName = \'' + req.body.name + '\', \
-            Description = \'' + req.body.description + '\', \
-            CategorySlug = \'' + slug(req.body.name) + '\', \
-            Image = \'' + req.body.image + '\' ' +
+        SET CategoryName = \'' + req.body.name + '\' ' +
             
                 /*Image = name.png\*/
             'WHERE CategoryID = ' + req.params.id;
@@ -108,10 +157,7 @@ router.route('/cat/add')
     .post(isAdmin, function (req, res, next) {
         var sqlStr = '\
         INSERT INTO Categories\
-        VALUES (null, \'' + req.body.name + '\', \
-            \'' + req.body.description + '\', \
-            \'' + slug(req.body.name) + '\', \
-            \'' + req.body.image + '\')'
+        VALUES (null, \'' + req.body.name + '\')'
         /*Image = name.png\*/
             ;
 
@@ -174,14 +220,6 @@ router.route('/products/:id/edit')
         UPDATE Products\
         SET ProductName = \'' + req.body.name + '\', \
             CategoryID = ' + req.body.category + ', \
-            ProductPrice = ' + req.body.price + ', \
-            UnitsInStock = ' + req.body.unit + ', \
-            Description = \'' + req.body.description + '\', \
-            ManufactureYear = ' + req.body.year + ', \
-            Image = \'' + req.body.image + '\', \
-            ProductSlug = \'' + slug(req.body.name) + '\', ' +
-                /*Image = name.png\*/
-            'Feature = ' + req.body.feature + ' \
         WHERE ProductID = ' + req.params.id;
 
         RunQuery(sqlStr, function (category) {
@@ -209,30 +247,36 @@ router.route('/products/add')
             FROM Categories';
 
         RunQuery(sqlStr, function (categories) {
-            var contextDict = {
-                title: 'Admin - Add Product',
-                categories: categories,
-                customer: req.user
-            };
 
-            res.render('admin/addProduct', contextDict);
+            var sqlStr2 = '\
+            SELECT *\
+            FROM padres';
+
+
+            RunQuery(sqlStr2, function (padres) {
+
+    
+    
+                var contextDict = {
+                    title: 'Admin - Add Product',
+                    categories: categories,
+                    padres: padres,
+                    customer: req.user
+                };
+    
+                res.render('admin/addProduct', contextDict);
+            });
         });
     })
 
     .post(isAdmin, function (req, res, next) {
         var sqlStr = '\
             INSERT INTO Products\
-            VALUES (null, \'' + req.body.name + '\', '
-                + req.body.category + ', '
-                + req.body.price + ', '
-                + req.body.unit + ', \
-            \'' + req.body.description + '\', '
-                + req.body.year + ', \
-            \'' + req.body.image + '\', \
-            \'' + slug(req.body.name) + '\', '
-                + req.body.feature + ')'
-        /*Image = name.png\*/
-            ;
+            VALUES (null, \'' + req.body.name + '\', \''
+                + req.body.category + '\', \''
+                + req.body.padre1 + '\', \''
+                + req.body.padre2 + '\', \''
+                + req.body.padre3 + '\')';
 
             console.log(sqlStr);
 
@@ -251,7 +295,7 @@ router.route('/orders')
         RunQuery(selectQuery, function (orders) {
 
             var contextDict = {
-                title: 'Admin - Ordenes',
+                title: 'Admin - Asistencia',
                 customer: req.user,
                 orders: orders
             };
@@ -286,7 +330,7 @@ router.route('/orders/:id')
                     SELECT *\
                     FROM `Order Details`\
                     INNER JOIN (\
-                        SELECT Products.*, Categories.CategorySlug\
+                        SELECT Products.*, Categories.CategoryName\
                         FROM Products\
                         INNER JOIN Categories\
                         ON Products.CategoryID = Categories.CategoryID\
@@ -331,7 +375,7 @@ router.route('/orders/:id/update')
                     SELECT *\
                     FROM `Order Details`\
                     INNER JOIN (\
-                        SELECT Products.*, Categories.CategorySlug\
+                        SELECT Products.*, Categories.CategoryName\
                         FROM Products\
                         INNER JOIN Categories\
                         ON Products.CategoryID = Categories.CategoryID\
@@ -370,7 +414,7 @@ router.route('/customers')
 
         var selectQuery = '\
             SELECT *\
-            FROM Users';
+            FROM Users INNER JOIN categories ON users.Grupo = categories.CategoryID';
 
         RunQuery(selectQuery, function (customers) {
 
@@ -383,6 +427,45 @@ router.route('/customers')
             res.render('admin/customers', contextDict);
         });
     });
+
+router.route('/customers/add')
+    .get(isAdmin, function (req, res, next) {
+
+        var sqlStr = '\
+            SELECT *\
+            FROM Categories';
+
+        RunQuery(sqlStr, function (categories) {
+            var contextDict = {
+                title: 'Admin - Add Profesor',
+                categories: categories,
+                customer: req.user
+            };
+
+            res.render('admin/addProfesor', contextDict);
+        });
+    })
+
+    .post(isAdmin, function (req, res, next) {
+
+        var passwordHash = bcrypt.hashSync(password, null, null);
+        var sqlStr = '\
+            INSERT INTO Users\
+            VALUES (null, \'' + req.body.fullName + '\', '
+                + req.body.phone + ', '
+                + req.body.email + ', '
+                + req.body.username + ', '
+                + req.body.category + ', '
+                + passwordHash + '\', 0)';
+
+
+            console.log(sqlStr);
+
+        RunQuery(sqlStr, function (category) {
+            res.redirect('/admin/customers');
+        });
+    });
+
 
 router.route('/customers/:id/makeAdmin')
     .post(isAdmin, function (req, res) {

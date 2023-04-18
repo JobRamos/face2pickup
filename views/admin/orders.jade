@@ -2,36 +2,36 @@ extends admin
 
 block details
 
+    h2 Asistencia
+
     table.content-table
         thead
             tr
-                th(colspan='5') Historial de Ordenes
+                th(colspan='5') Historial de asitencia
         thead
             tr
-                td #
                 td Fecha
-                td Estatus actual
-                td Total
+                td Descripcion
+                td 
                 td    
 
         tbody
             each order in orders
                 tr
-                    td= order.OrderID
-                    td= order.OrderDate
-                    td= order.Status
-                    td(style='color: green;')= ' $' + order.Total
-                    td
-                        form.dev-form(action='/admin/orders/' + order.OrderID, method='GET')
-                            button.btn.btn-default.order-btn(type='submit' class="btn btn-link")
-                                i.fa.fa-eye
-                                = ' Detalle de orden'
+                    //- td= order.OrderDate
+                    //- td= order.Status
+                    //- td(style='color: green;')= ' $' + order.Total
+                    //- td
+                    //-     form.dev-form(action='/admin/orders/' + order.OrderID, method='GET')
+                    //-         button.btn.btn-default.order-btn(type='submit' class="btn btn-link")
+                    //-             i.fa.fa-eye
+                    //-             = ' Detalle de orden'
 
 
-                        form.dev-form(action='/admin/orders/' + order.OrderID + '/update', method='GET')
-                            button.order-btn.btn.btn-default(type='submit', class="btn btn-info")
-                                i.fa.fa-list
-                                = ' Actualizar  Estatus'
+                    //-     form.dev-form(action='/admin/orders/' + order.OrderID + '/update', method='GET')
+                    //-         button.order-btn.btn.btn-default(type='submit', class="btn btn-info")
+                    //-             i.fa.fa-list
+                    //-             = ' Actualizar  Estatus'
 
 
 

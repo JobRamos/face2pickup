@@ -2,35 +2,28 @@ extends info
 
 block details
 
+    h2 Alumnos inscritos en el grupo
+
     table.content-table
         thead
             tr
-                th(colspan='5') Historial de Ordenes
-        thead
-            tr
-                td #
-                td Fecha
-                td Estatus actual
-                td Total
-                td    
+                td Nombre completo
+                td Padre 1
+                td Padre 2
+                td Padre 3
+                td Grupo
 
         tbody
             if (orders < 1)
                 tr
                     td
                     td(colspan="3", style="text-align: center;")
-                        p= "No se encontraron ordenes registradas"
-                        a(class={active: currentUrl === '/'}, href='/')
-                                            | Explorar productos
+                        p= "No se encontraron alumnos inscritos en tu grupo"
             else
                 each order in orders
                     tr
-                        td= order.OrderID
-                        td= order.OrderDate
-                        td= order.Status
-                        td(style='color: green;')= ' $' + order.Total
-                        td
-                            form(action='/usr/' + customer.Username + '/orders/' + order.OrderID, method='GET')
-                                button.btn.btn-default.order-btn(type='submit' class="btn btn-link")
-                                    i.fa.fa-eye
-                                    = ' Detalle de orden'
+                        td= order.ProductName
+                        td= order.padre1
+                        td= order.padre2
+                        td= order.padre3
+                        td= order.CategoryName

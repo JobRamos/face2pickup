@@ -3,51 +3,40 @@ extends admin
 block details
 
     .center-login
-        h1 Añadir nuevo producto
+        h1 Añadir nuevo alumno
         form(id='addProduct', action='/admin/products/add', method='POST')
             .txt_field
                 input(type='text', id='name', name='name', required=true)
                 span
-                label Nombre del Videojuego 
+                label Nombre completo 
             .radio_field
                 span
-                label Categoría
+                label Grupo
                 select(id='category', name='category')
                     each category in categories
                         option(value=category.CategoryID)= category.CategoryName
-            .txt_field
-                input(type='text', id='price', name='price', required=true)
-                span
-                label Precio del Videojuego 
-            .txt_field
-                input(type='text', id='unit', name='unit', required=true)
-                span
-                label Unidades en Stock
-            .txt_field
-                input(type='text', id='description', name='description', required=true)
-                span
-                label Descripción del Videojuego 
-            .txt_field
-                input(type='text', id='year', name='year', required=true)
-                span
-                label Año de lanzamiento del Videojuego 
-            .txt_field
-                input(type='text', id='image', name='image', required=true)
-                span
-                label Imagen de la categoría
             .radio_field
                 span
-                label Mostrar producto como disponible
-                
-                input(type='radio', id='featureYes', name='feature', value=1)
-                label(for='featureYes') Si
-                
-                
-                input(type='radio', id='featureNo', name='feature', value=0)
-                label(for='featureNo') No
+                label Padre 1
+                select(id='padre1', name='padre1')
+                    each padre in padres
+                        option(value=padre.PadreNombre)= padre.PadreNombre
+            .radio_field
+                span
+                label Padre 2
+                select(id='padre2', name='padre2')
+                    each padre in padres
+                        option(value=padre.PadreNombre)= padre.PadreNombre
+            .radio_field
+                span
+                label Padre 3
+                select(id='padre3', name='padre3')
+                    each padre in padres
+                        option(value=padre.PadreNombre)= padre.PadreNombre           
+            
 
                 br
-            input(type='submit', value='Añadir producto')
+            input(type='submit', value='Añadir alumno')
             br
             br
     br

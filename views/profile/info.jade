@@ -5,8 +5,7 @@ block content
         .container
             .row
                 h2.title.text-center
-                    i.fa.fa-user
-                    |  Configuración
+                    i.fa.fa-user=  " " + customer.FullName
                 //title here. no duplicate
                 //if navList
                 .col-sm-3
@@ -20,7 +19,11 @@ block content
                             .panel.panel-default
                                 .panel-heading
                                     h4.panel-title
-                                        a(href='/usr/' + customer.Username + '/orders') Ordenes
+                                        a(href='/usr/' + customer.Grupo + '/orders') Alumnos inscritos en el grupo
+                            .panel.panel-default
+                                .panel-heading
+                                    h4.panel-title
+                                        a(href='/usr/' + customer.Grupo + '/asistencia') Asistencia diaria
                             
                     ///nav-bar
                 .col-sm-9

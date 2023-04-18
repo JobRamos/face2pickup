@@ -99,13 +99,32 @@ router.route('/:username/change-password')
         }
     });
 
-router.route('/:username/orders')
+    // asistencia diaria
+router.route('/:Grupo/asistencia')
+    .get(isLoggedIn, function (req, res) {
+
+        var selectQuery = 'SELECT * FROM asistencia\
+         WHERE grupo = \'' + req.user.CategoryName + '\' ORDER BY fecha ASC';
+
+
+        RunQuery(selectQuery, function (orders) {
+            res.render('profile/asistencia', {
+                title: req.user.FullName,
+                customer: req.user,
+                orders: orders
+            });
+        });
+    });
+
+router.route('/:Grupo/orders')
     .get(isLoggedIn, function (req, res) {
 
         var selectQuery = '\
-            SELECT *\
-            FROM Orders\
-            WHERE UserID = ' + req.user.UserID;
+        SELECT Products.*, Categories.CategoryName\
+        FROM Products \
+        INNER JOIN Categories \
+        ON Products.CategoryID = Categories.CategoryID \
+        WHERE CategoryName = ' + '\'' + req.user.CategoryName+ '\'';
 
         RunQuery(selectQuery, function (orders) {
             res.render('profile/orders', {
@@ -135,7 +154,7 @@ router.route('/:username/orders/:id')
                     SELECT *\
                     FROM `Order Details`\
                     INNER JOIN (\
-                        SELECT Products.*, Categories.CategorySlug\
+                        SELECT Products.*, Categories.CategoryName\
                         FROM Products\
                         INNER JOIN Categories\
                         ON Products.CategoryID = Categories.CategoryID\
@@ -160,91 +179,55 @@ router.route('/:username/orders/:id')
         });
     });
 
-router.route('/:username/addresses')
-    .get(isLoggedIn, function (req, res) {
-
-        var selectQuery = '\
-            SELECT *\
-            FROM Addresses\
-            WHERE UserID = ' + req.user.UserID;
-
-        RunQuery(selectQuery, function (addresses) {
-            res.render('profile/addresses', {
-                title: req.user.FullName,
-                customer: req.user,
-                addresses: addresses
-            });
-        });
-    });
-
-router.route('/:username/addresses/:id/edit')
-    .get(isLoggedIn, function (req, res) {
-
-        var selectQuery = '\
-            SELECT *\
-            FROM Addresses\
-            WHERE AddressID = ' + req.params.id;
-
-        RunQuery(selectQuery, function (address) {
-            res.render('profile/editAddress', {
-                title: req.user.FullName,
-                customer: req.user,
-                address: address[0]
-            });
-        });
-    })
-
+    router.route('/asistencia/:id/confirmar')
     .post(isLoggedIn, function (req, res) {
-        var form = req.body;
 
         var updateQuery = '\
-                UPDATE Addresses\
-                SET Fullname = \'' + form.fullName + '\', \
-                    StreetAddress = \'' + form.streetAddress + '\', \
-                    PostCode = \'' + form.postcode + '\', \
-                    City = \'' + form.city + '\', \
-                    Country = \'' + form.country + '\' \
-                WHERE AddressID = ' + req.params.id;
+            UPDATE asistencia\
+            SET estatus = 1\
+            WHERE AsistenciaID = ' + req.params.id;
 
         RunQuery(updateQuery, function (result) {
-            res.redirect('/usr/' + req.user.Username + '/addresses/');
+            
+
+            var selectQuery = 'SELECT * FROM asistencia\
+            WHERE grupo = \'' + req.user.CategoryName + '\' ORDER BY fecha ASC';
+
+
+            RunQuery(selectQuery, function (orders) {
+                res.render('profile/asistencia', {
+                    title: req.user.FullName,
+                    customer: req.user,
+                    orders: orders
+                });
+            });
+
         });
     });
 
-router.route('/:username/addresses/:id/delete')
-    .post(isLoggedIn, function (req, res, next) {
-
-        var sqlStr = '\
-            DELETE FROM Addresses\
-            WHERE AddressID = ' + req.params.id;
-
-        RunQuery(sqlStr, function (result) {
-            res.redirect('/usr/' + req.user.Username + '/addresses/');
-        });
-    });
-
-router.route('/:username/addresses/add')
-    .get(isLoggedIn, function (req, res) {
-        res.render('profile/addAddress', {
-            title: req.user.FullName,
-            customer: req.user
-        });
-    })
-
+router.route('/asistencia/:id/anular')
     .post(isLoggedIn, function (req, res) {
-        var form = req.body;
 
-        var insertQuery = '\
-                INSERT INTO Addresses\
-                VALUES (null, ' + req.user.UserID + ', \
-                    \'' + form.fullName + '\', \
-                    \'' + form.streetAddress + '\', \
-                    \'' + form.postcode + '\', \
-                    \'' + form.city + '\', \
-                    \'' + form.country + '\')';
+        var updateQuery = '\
+            UPDATE asistencia\
+            SET estatus = 0\
+            WHERE AsistenciaID = ' + req.params.id;
 
-        RunQuery(insertQuery, function (result) {
-            res.redirect('/usr/' + req.user.Username + '/addresses/');
+        RunQuery(updateQuery, function (result) {
+            
+
+            var selectQuery = 'SELECT * FROM asistencia\
+            WHERE grupo = \'' + req.user.CategoryName + '\' ORDER BY fecha ASC';
+
+
+            RunQuery(selectQuery, function (orders) {
+                res.render('profile/asistencia', {
+                    title: req.user.FullName,
+                    customer: req.user,
+                    orders: orders
+                });
+            });
+
         });
     });
 

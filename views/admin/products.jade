@@ -1,61 +1,48 @@
 extends admin
 
 block details
+    
 
     form(action='/admin/products/add', method='GET')
         button.btn.btn-default(type='submit', class="btn btn-success")
             i.fa.fa-plus
-            = ' Añadir nuevo producto'
-            
-    .row
-        .features_items
-            if products
-                each product in products
-                    .row
-                        .col-sm-3
-                            .product-image-wrapper
-                                .single-products
-                                    .productinfo.text-center
-                                        img(src=product.Image, alt=product.ProductName)
-                        .col-sm-6
-                            h2.cat= product.ProductName
+            = ' Añadir nuevo alumno'
+    br
+    
+    h2 Alumnos
 
-                            p= product.Description
+    table.content-table
+        thead
+            tr
+                th(colspan='6') Alumnos
+        thead
+            tr
+                td Nombre completo
+                td Padre 1
+                td Padre 2
+                td Padre 3
+                td Grupo
+                td    
 
-                            p
-                                b Categoría:
-                                = ' ' + product.CategoryName
-
-                            p
-                                b Unidades en Stock:
-                                = ' ' + product.UnitsInStock
-                            p
-                                b Año de lanzamiento:
-                                = ' ' + product.ManufactureYear
-
-                            p
-                                b Precio:
-                                = ' $' + product.ProductPrice
-
-                            - var feature = 'Si'
-                            if (product.Feature == 0)
-                                - feature = 'No'
-                            p
-                                b Mostrar producto como disponible:
-                                = ' ' + feature
-
-
-
-                        .col-sm-3
-                            form.dev-form(action='/admin/products/' + product.ProductID + '/edit', method='GET')
+        tbody
+            each product in products
+                tr
+                    td= product.ProductName
+                    td= product.padre1
+                    td= product.padre2
+                    td= product.padre3
+                    td= product.CategoryName
+                    td
+                        form.dev-form(action='/admin/products/' + product.ProductID + '/edit', method='GET')
                                 button.btn.btn-default(type='submit', class="btn btn-info")
                                     i.fa.fa-edit
                                     = ' Editar'
 
-                            form.dev-form(action='/admin/products/' + product.ProductID + '/delete', method='POST')
+
+                        form.dev-form(action='/admin/products/' + product.ProductID + '/delete', method='POST')
                                 button.btn.btn-default(type='submit', class="btn btn-danger")
                                     i.fa.fa-trash-o
                                     = ' Eliminar'
-    
-    br
-    br
+
+
+

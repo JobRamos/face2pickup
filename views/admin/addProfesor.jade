@@ -1,0 +1,47 @@
+extends admin
+
+block details
+
+    .center-login
+        h1 Regístrato Face 2 Pick Up
+
+        form(id='sign-up', action='/sign-up', method='POST')
+            .txt_field
+                input(type='text', name='fullName', required=true)
+                span
+                label Nombre completo
+            .txt_field
+                input(type='email', name='email', required=true)
+                span
+                label Correo electronico
+            .txt_field
+                input(type='text', name='phone', required=true)
+                span
+                label Celular
+            .txt_field
+                input(type='text', name='username', required=true)
+                span
+                label Usuario
+            .txt_field
+                input(type='password', required=true , name='password')
+                span
+                label Contraseña
+            .txt_field
+                input(type='password', required=true , name='rePassword')
+                span
+                label Confirmar Contraseña
+
+            .radio_field
+                span
+                label Grupo
+                select(id='category', name='category')
+                    each category in categories
+                        option(value=category.CategoryID)= category.CategoryName
+            input(type='submit', value='Regístrate')
+            
+            br
+            br
+
+
+
+

@@ -2,34 +2,33 @@ extends admin
 
 block details
     .row
-        form(action='/admin/cat/add', method='GET')
+        form(action='/admin/padres/add', method='GET')
             button.btn.btn-default(type='submit', class="btn btn-success")
                 i.fa.fa-plus
-                = ' Añadir nuevo grupo'
+                = ' Añadir nuevo padre de familia'
         br
 
-    h2 Grupos
-    
+    h2 Padres de familia
 
     table.content-table
         
         thead
             tr
-                td Nombre del grupo
+                td Nombre completo
                 td    
 
         tbody
-            each category in categories
+            each padre in padres
                 tr
-                    td= category.CategoryName
+                    td= padre.PadreNombre
                     td
-                        form.dev-form(action='/admin/cat/' + category.CategoryID + '/edit', method='GET')
+                        form.dev-form(action='/admin/cat/' + padre.PadreID + '/edit', method='GET')
                                 button.btn.btn-default(type='submit', class="btn btn-info")
                                     i.fa.fa-edit
                                     = ' Editar'
 
 
-                        form.dev-form(action='/admin/cat/' + category.CategoryID + '/delete', method='POST')
+                        form.dev-form(action='/admin/padres/' + padre.PadreID + '/delete', method='POST')
                                 button.btn.btn-default(type='submit', class="btn btn-danger")
                                     i.fa.fa-trash-o
                                     = ' Eliminar'

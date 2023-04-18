@@ -34,7 +34,7 @@ module.exports = function (app, passport) {
             checkOutNoti: checkOutNoti
         };
 
-        res.render('sign-up', contextDict);
+        res.redirect('/admin/customers/');
     });
 
     // process the signup form

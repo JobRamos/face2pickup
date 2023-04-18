@@ -3,66 +3,43 @@ extends admin
 block details
 
     .center-login
-        h1 Editar producto
+        h1 Editar alumno
         form(id='editProduct', action='/admin/products/' + product.ProductID + '/edit', method='POST')
             .txt_field
                 input(type='text', id='name', name='name', value=product.ProductName, required=true)
                 span
-                label Nombre del Videojuego 
+                label Nombre completo 
             .radio_field
                 span
-                label Categoría
+                label Grupo
                 select(id='category', name='category')
                     each category in categories
                         if category.CategoryID == product.CategoryID
                             option(value=category.CategoryID, selected)= category.CategoryName
                         else
                             option(value=category.CategoryID)= category.CategoryName
-            .txt_field
-                input(type='text', id='price', name='price', value=product.ProductPrice, required=true)
-                span
-                label Precio del Videojuego 
-            .txt_field
-                input(type='text', id='unit', name='unit', value=product.UnitsInStock, required=true)
-                span
-                label Unidades en Stock
-            .txt_field
-                input(type='text', id='description', name='description', value=product.Description, required=true)
-                span
-                label Descripción del Videojuego 
-            .txt_field
-                input(type='text', id='year', name='year', value=product.ManufactureYear, required=true)
-                span
-                label Año de lanzamiento del Videojuego 
-            .txt_field
-                input(type='text', id='image', name='image', value=product.Image)
-                span
-                label Imagen de la categoría
-                if product.Image
-                    img.dev-img(src=product.Image, alt=product.ProductName, width='200px')
+            
             .radio_field
                 span
-                label Mostrar producto como disponible
-                
-                - var feature = true
-                if product.Feature == false
-                    - feature = false 
+                label Padre 1
+                select(id='padre1', name='padre1')
+                    each padre in padres
+                        option(value=padre.PadreNombre)= padre.PadreNombre
+            .radio_field
+                span
+                label Padre 2
+                select(id='padre2', name='padre2')
+                    each padre in padres
+                        option(value=padre.PadreNombre)= padre.PadreNombre
+            .radio_field
+                span
+                label Padre 3
+                select(id='padre3', name='padre3')
+                    each padre in padres
+                        option(value=padre.PadreNombre)= padre.PadreNombre  
+            
 
-                label(for='featureYes') Yes
-                if feature
-                    input(type='radio', id='featureYes', name='feature', value=1, checked)
-                else
-                    input(type='radio', id='featureYes', name='feature', value=1)
-
-
-                label(for='featureNo') No
-                if !feature
-                    input(type='radio', id='featureNo', name='feature', value=0, checked)
-                else
-                    input(type='radio', id='featureNo', name='feature', value=0)
-                br
-
-                br
+            br
             input(type='submit', value='Actualizar producto')
             br
             br

@@ -4,16 +4,17 @@ html
         //metadata
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
-        meta(name='description', content='Iocus')
-        meta(name='author', content='Iocus. Todos los Derechos Reservados')
+        meta(name='description', content='Face 2 Pick Up')
+        //- meta(http-equiv='refresh', content='2')
+        meta(name='author', content='Face 2 Pick Up. Todos los Derechos Reservados')
         //title
-        title=  'Iocus | ' + title
+        title=  'Face 2 Pick Up | ' + title
         //stylesheet
         link(rel='stylesheet', href='/css/bootstrap.min.css')
         link(rel='stylesheet', href='/css/font-awesome.min.css')
         link(rel='stylesheet', href='/css/main.css')
         //favicon
-        link(rel='shortcut icon', href='/img/iocus-5.png')
+        link(rel='shortcut icon', href='/img/logo-2.png')
         link(rel='apple-touch-icon-precomposed', sizes='144x144', href='/img/ico/apple-touch-icon-144-precomposed.png')
         link(rel='apple-touch-icon-precomposed', sizes='114x114', href='/img/ico/apple-touch-icon-114-precomposed.png')
         link(rel='apple-touch-icon-precomposed', sizes='72x72', href='/img/ico/apple-touch-icon-72-precomposed.png')
@@ -28,15 +29,12 @@ html
                     .row
                         .col-sm-6
                             a(href='/')
-                                    img(src='/img/iocus-5.png', alt='Iocus Logo')
+                                img(src='/img/logo-3.png', alt='Face 2 Pick Up Logo')
                                 
                         .col-sm-6
                             .shop-menu.pull-right
                                 ul.nav.navbar-nav
-                                    li
-                                        a(href='/wishlist')
-                                            i.fa.fa-heart
-                                            |  Lista de Deseos
+                                    
                                     -var orderCus = 'Iniciar Sesión'
                                     -var link = '/sign-in'
                                     if customer
@@ -46,14 +44,7 @@ html
                                         a(href=link)
                                             i.fa.fa-user
                                             =orderCus
-                                    li
-                                        a(href='/cart')
-                                            i.fa.fa-shopping-cart
-                                            |  Carrito
-                                    //li
-                                    //    a(href='/checkout')
-                                    //        i.fa.fa-money
-                                    //        |  Checkout
+                                    
                                     if customer
                                         li
                                             a(href='/sign-out')
@@ -61,76 +52,19 @@ html
                                                 |  Logout
             ///header_top
 
-
-            .headerxd
-                a(href='/')
-                    img(src='/img/iocus-8.png', alt='Iocus Logo')
-
-                .header-center
-                    form(id='sign-in', action='/cat/buscar', method='POST')
-                        input.search-input(type='text', name='buscador', value=buscador, placeholder='Buscar', style="color: black;", class="searchTerm")
-                        button(type='submit', class="searchButton")
-                            i.fa.fa-search
-
-                .header-right
-                    a.active(class={active: currentUrl === '/'}, href='/') Inicio
-                    a(class={active: currentUrl === '/cat/all'}, href='/cat/all') Productos
-                    a(class={active: currentUrl === '/contact-us'}, href='/contact-us') Contacto
-
-
             ///header-bottom
         ///header
 
         block content
 
-        //Footer
-        footer#footer
-            //.footer-top
-            //    .container
-            //        .row
-            //            .col-sm-3
-            //                .single-promo.promo1
-            //                    i.fa.fa-refresh
-            //                    p 30 Days return
-            //            .col-sm-3
-            //                .single-promo.promo2
-            //                    i.fa.fa-truck
-            //                    p Free shipping
-            //            .col-sm-3
-            //                .single-promo.promo3
-            //                    i.fa.fa-lock
-            //                    p Secure payments
-            //            .col-sm-3
-            //                .single-promo.promo4
-            //                    i.fa.fa-gift
-            //                    p Surprising Gift
-            .footer-widget
-                .container
-                    .row
-                        .col-sm-2
-                            .companyinfo
-                                h2
-                                    span I
-                                    | ocus Store
-                                p
-                                    | Iocus es la tienda online 
-                                    | comprometida a convertirse en el portal
-                                    | de videojuegos mas usado en el mundo.
-                        .col-sm-3.col-sm-offset-1
-                            .single-widget
-                                h2 NewsLetter
-                                form.searchform(action='/subscribe', method='POST')
-                                    input(type='text', name='email', placeholder='Email')
-                                    button.btn.btn-default(type='submit')
-                                        i.fa.fa-arrow-circle-o-right
-                                    p
-                                        | Obtenga las actualizaciones más recientes, ofertas exclusivas que 
-                                        | no encontrará en ningún otro lugar directamente en 
-                                        | su bandeja de entrada y actualícese usted mismo.
-            .footer-bottom
-                .container
-                    .row
-                        p.pull-left &copy 2023 Iocus Website. Todos los Derechos Reservados.
+        //- //Footer
+        //- footer#footer
+                
+                        
+        //-     .footer-bottom
+        //-         .container
+        //-             .row
+        //-                 p.pull-left &copy 2023 Face 2 Pick Up
         ///Footer
         script(src='https://js.stripe.com/v3/')
         script(src='/js/jquery-2.1.4.min.js')

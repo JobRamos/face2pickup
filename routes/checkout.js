@@ -135,7 +135,7 @@ router.route('/order')
                     SELECT *\
                     FROM `Order Details`\
                     INNER JOIN (\
-                        SELECT Products.*, Categories.CategorySlug\
+                        SELECT Products.*, Categories.CategoryName\
                         FROM Products\
                         INNER JOIN Categories\
                         ON Products.CategoryID = Categories.CategoryID\

@@ -1,17 +1,27 @@
 extends admin
 
 block details
+
+    .row
+        form(action='/admin/customers/add', method='GET')
+            button.btn.btn-default(type='submit', class="btn btn-success")
+                i.fa.fa-plus
+                = ' Añadir nuevo Profesor'
+        br
+
+    h2 Profesores registrados
+
     .table-responsive
         table.content-table
-            thead
-                tr
-                    th(colspan='7') Usuarios registrados
+            
             thead
                 tr
                     td #
                     td Nombre
+                    td Celular
                     td Email
                     td Usuario
+                    td Grupo
                     td Admin
                     td(colspan="2") Acciones
             tbody
@@ -19,8 +29,10 @@ block details
                     tr
                         td= customer.UserID
                         td= customer.FullName
+                        td= customer.Phone
                         td= customer.Email
                         td= customer.Username
+                        td= customer.CategoryName
                         td
                             - var admin = 'Si'
                             if customer.Admin == 0

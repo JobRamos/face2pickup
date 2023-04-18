@@ -9,16 +9,6 @@ block details
                 input(type='text', id='name', name='name', value=category.CategoryName, required=true)
                 span
                 label Nombre de la categoría
-            .txt_field
-                input(type='text', id='description', name='description', value=category.Description, required=true)
-                span
-                label Descripción de la categoría
-            .txt_field
-                input(type='text', id='image', name='image', value=category.Image, required=true)
-                span
-                label Imagen de la categoría
-                if category.Image
-                    img.dev-img(src=category.Image, alt=category.CategoryName)
             input(type='submit', value='Actualizar categoría')
             br
             br

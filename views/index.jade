@@ -1,51 +1,23 @@
 extends layout
 
 block content
-    
-
-
-    section
-
+    section#form
+        //form
         .container
-            .row    
-                .features_items
-
-                        .banner
-                            .capa
-                            .info
-                                img.iocus-banner(src='/img/iocus-1.png', alt='Iocus Logo')
-                                p
-                                | Bienvenido a Iocus, el mejor sitio web para la compra de videojuegos digitales
-          
-                                       
-                        br
-
-                        
-                        h2.title.text-center Videojuegos
-                        if featProducts
-                            each product in featProducts
-                                - var productUrl = '/cat/' + product.CategorySlug + '/' + product.ProductSlug;
-                                .col-sm-3
-                                    .product-image-wrapper
-                                        .single-products
-                                            .productinfo.text-center
-                                                .productimg
-                                                    a(href=productUrl)
-                                                        img(src=product.Image, alt=product.ProductName)
-                                                p
-                                                    a(href=productUrl)=product.ProductName
-                                                h2= ' $' + product.ProductPrice
-                    ///features_items
-            .row
-                .features_items
-                    h2.title.text-center Categorias
-                    if categories
-                        each category in categories
-                            .col-sm-3
-                                a(href='/cat/' + category.CategorySlug)
-                                    .product-image-wrapper
-                                        .single-products
-                                            .categoryinfo.text-center
-                                                .categoryimg
-                                                    img(src=category.Image, alt=category.CategoryName)
-                                                    h4=category.CategoryName
+                    .center-login
+                        h1 Iniciar Sesión
+                        form(id='sign-in', action='/sign-in', method='POST')
+                            .txt_field
+                                input(type='text', required='true', name='username')
+                                span
+                                label Usuario
+                            .txt_field
+                                input(type='password', required='true', name='password')
+                                span
+                                label Contraseña
+                            //- .pass ¿Olvidaste tu  Contraseña?
+                            br
+                            input(type='submit', value='Login')
+                            br
+                            br
+    ///form

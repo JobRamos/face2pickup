@@ -52,7 +52,7 @@ app.use(passport.session());
     // use connect-flash for flash messages stored in session
 app.use(flash());
 
-const YOUR_DOMAIN = 'http://110.238.80.161:3000';
+const YOUR_DOMAIN = 'http://localhost:3000';
 
 app.post('/create-checkout-session', async (req, res) => {
   const session = await stripe.checkout.sessions.create({
@@ -62,7 +62,7 @@ app.post('/create-checkout-session', async (req, res) => {
             currency: "MXN",
             unit_amount: req.session.cartSummary.total * 100,
             product_data: {
-              name: "Iocus",
+              name: "Face 2 Pick Up",
             },
           },
           quantity: 1,

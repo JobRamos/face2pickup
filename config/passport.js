@@ -28,7 +28,7 @@ module.exports = function (passport) {
     passport.deserializeUser(function (userId, done) {
         var sqlStr = '\
             SELECT *\
-            FROM users\
+            FROM users INNER JOIN categories ON users.Grupo = categories.CategoryID\
             where UserID = \'' + userId + '\'';
         RunQuery(sqlStr, function (rows) {
             done(null, rows[0]);
@@ -43,7 +43,7 @@ module.exports = function (passport) {
         },
         function (req, username, password, done) { // callback with username and password from form
             // check to see if the user exists or not
-            var sqlStr = 'SELECT * FROM users WHERE Username = \'' + username + '\'';
+            var sqlStr = 'SELECT * FROM users INNER JOIN categories ON users.Grupo = categories.CategoryID WHERE Username = \'' + username + '\'';
             RunQuery(sqlStr, function (rows) {
                 // if no user is found, return the message
                 if (rows.length < 1)
@@ -97,6 +97,7 @@ module.exports = function (passport) {
                                 // if there is no user with that user and email
                                 var fullName = req.body.fullName;
                                 var phone = req.body.phone;
+                                var category = req.body.category;
                                 var passwordHash = bcrypt.hashSync(password, null, null);
 
                                 var insertQuery = 'INSERT INTO Users\
@@ -105,7 +106,8 @@ module.exports = function (passport) {
                                     \'' + phone + '\', \
                                     \'' + email + '\', \
                                     \'' + username + '\', \
-                                    \'' + passwordHash + '\', 0)';
+                                    \'' + passwordHash + '\', 0, \
+                                    \'' + category + '\')';
 
                                 RunQuery(insertQuery, function (insertResult) {
                                     //user

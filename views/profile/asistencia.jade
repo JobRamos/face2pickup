@@ -1,0 +1,54 @@
+
+//- meta(http-equiv='refresh', content='2')
+
+extends info
+
+block details
+
+    h2 Asistencia diaria
+
+    table.content-table
+        thead
+            tr
+                td Fecha
+                td Nombre completo
+                td Padre que acudió
+                td Grupo
+                td Acciones
+                td Estatus
+
+        tbody
+            if (orders < 1)
+                tr
+                    td
+                    td(colspan="3", style="text-align: center;")
+                        p= "No se encontraron alumnos inscritos en tu grupo"
+            else
+                each order in orders
+                    tr
+                        td= order.fecha
+                        td= order.alumno
+                        td= order.padre
+                        td= order.grupo
+                        
+
+                        
+                        if (order.estatus == 0)
+                            td                            
+                                form.dev-form(action='/usr/asistencia/' + order.AsistenciaID + '/confirmar', method='POST')
+                                    button.cus-btn.btn.btn-default(type='submit', class="btn btn-success")
+                                        i.fa.fa-info
+                                        = ' Confirmar salida'
+                            td(style="background-color:#FFBF00; color:white; text-align:center;")
+                                i.fa.fa-warning
+                        if (order.estatus == 1)
+                            td
+                                form.dev-form(action='/usr/asistencia/' + order.AsistenciaID + '/anular', method='POST')
+                                    button.cus-btn.btn.btn-default(type='submit', class="btn btn-danger")
+                                        i.fa.fa-info
+                                        = ' Anular salida'
+                            td(style="background-color:green; color:white; text-align:center;")
+                                i.fa.fa-check 
+
+
+

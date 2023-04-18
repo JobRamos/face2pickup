@@ -56,7 +56,7 @@ router.route('/:id/add')
         var wishlist = req.session.wishlist;
 
         var selectQuery = '\
-            SELECT Products.*, Categories.CategorySlug\
+            SELECT Products.*, Categories.CategoryName\
             FROM Products\
             INNER JOIN Categories\
             ON Products.CategoryID = Categories.CategoryID\

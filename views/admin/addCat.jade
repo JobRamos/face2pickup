@@ -3,21 +3,13 @@ extends admin
 block details
 
     .center-login
-        h1 Añadir nueva categoría
+        h1 Añadir nuevo grupo
         form(id='addCat', action='/admin/cat/add', method='POST')
             .txt_field
                 input(type='text', id='name', name='name', required=true)
                 span
-                label Nombre de la categoría
-            .txt_field
-                input(type='text',id='description', name='description', required=true)
-                span
-                label Descripción de la categoría
-            .txt_field
-                input(type='text', id='image', name='image' required=true)
-                span
-                label Imagen de la categoría
-            input(type='submit', value='Añadir categoría')
+                label Nombre del grupo
+            input(type='submit', value='Añadir grupo')
             br
             br
     br
