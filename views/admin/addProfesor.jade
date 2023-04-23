@@ -3,7 +3,7 @@ extends admin
 block details
 
     .center-login
-        h1 Regístrato Face 2 Pick Up
+        h1 Regístrar nuevo profesor 
 
         form(id='sign-up', action='/sign-up', method='POST')
             .txt_field
@@ -37,7 +37,7 @@ block details
                 select(id='category', name='category')
                     each category in categories
                         option(value=category.CategoryID)= category.CategoryName
-            input(type='submit', value='Regístrate')
+            input(type='submit', value='Regístrar profesor')
             
             br
             br

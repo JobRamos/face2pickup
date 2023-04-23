@@ -6,13 +6,18 @@ extends info
 block details
 
     h2 Asistencia diaria
-
+    
+    //- button(onclick='window.location.reload();', class="btn btn-info") 
+    //-     i.fa.fa-refresh
+    //-     = "  Refrescar lista"
+    //- br
+    //- br
     table.content-table
         thead
             tr
                 td Fecha
-                td Nombre completo
-                td Padre que acudió
+                td Alumno
+                td Padre
                 td Grupo
                 td Acciones
                 td Estatus
@@ -22,7 +27,7 @@ block details
                 tr
                     td
                     td(colspan="3", style="text-align: center;")
-                        p= "No se encontraron alumnos inscritos en tu grupo"
+                        p= "No se encontraron registros de asistencia el dia de hoy en tu grupo"
             else
                 each order in orders
                     tr
@@ -37,7 +42,7 @@ block details
                             td                            
                                 form.dev-form(action='/usr/asistencia/' + order.AsistenciaID + '/confirmar', method='POST')
                                     button.cus-btn.btn.btn-default(type='submit', class="btn btn-success")
-                                        i.fa.fa-info
+                                        i.fa.fa-check
                                         = ' Confirmar salida'
                             td(style="background-color:#FFBF00; color:white; text-align:center;")
                                 i.fa.fa-warning
@@ -45,10 +50,11 @@ block details
                             td
                                 form.dev-form(action='/usr/asistencia/' + order.AsistenciaID + '/anular', method='POST')
                                     button.cus-btn.btn.btn-default(type='submit', class="btn btn-danger")
-                                        i.fa.fa-info
+                                        i.fa.fa-undo
                                         = ' Anular salida'
                             td(style="background-color:green; color:white; text-align:center;")
                                 i.fa.fa-check 
 
+    script(src='/js/fecha.js')
 
 

@@ -11,27 +11,37 @@ block details
         thead
             tr
                 td Fecha
-                td Descripcion
-                td 
-                td    
+                td Alumno
+                td Padre
+                td Grupo
+                td Estatus 
 
         tbody
-            each order in orders
+            if (asistencias < 1)
                 tr
-                    //- td= order.OrderDate
-                    //- td= order.Status
-                    //- td(style='color: green;')= ' $' + order.Total
-                    //- td
-                    //-     form.dev-form(action='/admin/orders/' + order.OrderID, method='GET')
-                    //-         button.btn.btn-default.order-btn(type='submit' class="btn btn-link")
-                    //-             i.fa.fa-eye
-                    //-             = ' Detalle de orden'
+                    td
+                    td(colspan="3", style="text-align: center;")
+                        p= "No se encontraron datos de asistencia"
+            else
+                each asistencia in asistencias
+                    tr
+                        td= asistencia.fecha
+                        td= asistencia.alumno
+                        td= asistencia.padre
+                        td= asistencia.grupo
+                        
+
+                        
+                        if (asistencia.estatus == 0)
+                            
+                            td(style="background-color:#FFBF00; color:white; text-align:center;")
+                                i.fa.fa-warning
+                        if (asistencia.estatus == 1)
+                            
+                            td(style="background-color:green; color:white; text-align:center;")
+                                i.fa.fa-check 
 
 
-                    //-     form.dev-form(action='/admin/orders/' + order.OrderID + '/update', method='GET')
-                    //-         button.order-btn.btn.btn-default(type='submit', class="btn btn-info")
-                    //-             i.fa.fa-list
-                    //-             = ' Actualizar  Estatus'
 
 
 

@@ -14,11 +14,11 @@ block content
                         h1 Iniciar Sesión
                         form(id='sign-in', action='/sign-in', method='POST')
                             .txt_field
-                                input(type='text', required='true', name='username')
+                                input(type='text', required='true', name='username', maxlength="28")
                                 span
                                 label Usuario
                             .txt_field
-                                input(type='password', required='true', name='password')
+                                input(type='password', required='true', name='password', maxlength="28")
                                 span
                                 label Contraseña
                             //- .pass ¿Olvidaste tu  Contraseña?
@@ -31,4 +31,5 @@ block content
                             br
                     br
     br
+
     ///form

@@ -15,14 +15,17 @@ block details
         thead
             tr
                 td Nombre completo
+                td Foto
                 td    
 
         tbody
             each padre in padres
                 tr
                     td= padre.PadreNombre
+                    td 
+                        img(src='data:image/png;base64,' + padre.PadreFoto, style="width:100px;")
                     td
-                        form.dev-form(action='/admin/cat/' + padre.PadreID + '/edit', method='GET')
+                        form.dev-form(action='/admin/padres/' + padre.PadreID + '/edit', method='GET')
                                 button.btn.btn-default(type='submit', class="btn btn-info")
                                     i.fa.fa-edit
                                     = ' Editar'
@@ -32,6 +35,9 @@ block details
                                 button.btn.btn-default(type='submit', class="btn btn-danger")
                                     i.fa.fa-trash-o
                                     = ' Eliminar'
+        br
+    br
+    br
 
 
 

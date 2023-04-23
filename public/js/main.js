@@ -31,7 +31,7 @@ function initMap() {
     var marker = new google.maps.Marker({
         position: {lat: 60.2215, lng: 24.8078},
         map: map,
-        title: 'aStore Inc.'
+        title: 'Escuela.'
     });
     marker.setMap(map);
 

@@ -3,13 +3,13 @@ extends admin
 block details
 
     .center-login
-        h1 Editar categoría
+        h1 Editar grupo
         form(id='editCat', action='/admin/cat/' + category.CategoryID + '/edit', method='POST')
             .txt_field
                 input(type='text', id='name', name='name', value=category.CategoryName, required=true)
                 span
-                label Nombre de la categoría
-            input(type='submit', value='Actualizar categoría')
+                label Nombre del grupo
+            input(type='submit', value='Actualizar grupo')
             br
             br
     br

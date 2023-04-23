@@ -27,19 +27,19 @@ block details
         tbody
             each product in products
                 tr
-                    td= product.ProductName
-                    td= product.padre1
-                    td= product.padre2
-                    td= product.padre3
-                    td= product.CategoryName
+                    td= product.StudentName
+                    td= product.Tutor_1
+                    td= product.Tutor_2
+                    td= product.Tutor_3
+                    td= product.Grupo
                     td
-                        form.dev-form(action='/admin/products/' + product.ProductID + '/edit', method='GET')
+                        form.dev-form(action='/admin/products/' + product.ID_Student + '/edit', method='GET')
                                 button.btn.btn-default(type='submit', class="btn btn-info")
                                     i.fa.fa-edit
                                     = ' Editar'
 
 
-                        form.dev-form(action='/admin/products/' + product.ProductID + '/delete', method='POST')
+                        form.dev-form(action='/admin/products/' + product.ID_Student + '/delete', method='POST')
                                 button.btn.btn-default(type='submit', class="btn btn-danger")
                                     i.fa.fa-trash-o
                                     = ' Eliminar'

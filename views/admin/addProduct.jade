@@ -6,7 +6,7 @@ block details
         h1 Añadir nuevo alumno
         form(id='addProduct', action='/admin/products/add', method='POST')
             .txt_field
-                input(type='text', id='name', name='name', required=true)
+                input(type='text', id='name', name='name', required=true, maxlength="255", )
                 span
                 label Nombre completo 
             .radio_field
@@ -14,7 +14,7 @@ block details
                 label Grupo
                 select(id='category', name='category')
                     each category in categories
-                        option(value=category.CategoryID)= category.CategoryName
+                        option(value=category.CategoryName)= category.CategoryName
             .radio_field
                 span
                 label Padre 1

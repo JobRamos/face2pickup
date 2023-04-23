@@ -4,11 +4,17 @@ block details
 
     .center-login
         h1 Añadir nuevo padre de familia
-        form(id='addCat', action='/admin/padres/add', method='POST')
+        form(id='addCat', action='/admin/padres/add', method='POST', enctype='multipart/form-data')
             .txt_field
                 input(type='text', id='name', name='name', required=true)
                 span
                 label Nombre completo
+            .txt_field
+                input(type='file', name='ProductImage', required=true)
+                span
+                label Foto
+
+
             input(type='submit', value='Añadir padre de familia')
             br
             br

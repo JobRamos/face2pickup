@@ -2,7 +2,7 @@ extends info
 
 block details
 
-    h2 Alumnos inscritos en el grupo
+    h2= "Alumnos inscritos en el grupo " + customer.CategoryName 
 
     table.content-table
         thead
@@ -22,8 +22,8 @@ block details
             else
                 each order in orders
                     tr
-                        td= order.ProductName
-                        td= order.padre1
-                        td= order.padre2
-                        td= order.padre3
-                        td= order.CategoryName
+                        td= order.StudentName
+                        td= order.Tutor_1
+                        td= order.Tutor_2
+                        td= order.Tutor_3
+                        td= order.Grupo

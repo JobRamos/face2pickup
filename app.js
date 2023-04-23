@@ -6,6 +6,11 @@ const stripe = require('stripe')('sk_test_51MwEu0GCyDPnf9y0OMvmAVe006wbYxiFh5E5k
 
 var favicon = require('serve-favicon');
 var morgan = require('morgan');
+const multer = require('multer');
+
+const upload =multer({storage:multer.memoryStorage()});
+
+
 
 // authentication modules
 var cookieParser = require('cookie-parser');

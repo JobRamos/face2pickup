@@ -1,0 +1,24 @@
+extends admin
+
+block details
+
+    .center-login
+        h1 Editar padre de familia
+        form(id='addCat', action='/admin/padres/' + category.PadreID + '/edit', method='POST', enctype='multipart/form-data')
+            .txt_field
+                input(type='text', id='name', name='name', value=category.PadreNombre, required=true)
+                span
+                label Nombre completo
+            img(src='data:image/png;base64,' + category.PadreFoto, style="width:200px;")
+            .txt_field
+                input(type='file', name='ProductImage', required=true)
+                
+                span
+                label Foto
+
+
+            input(type='submit', value='Editar Información del padre')
+            br
+            br
+    br
+    br

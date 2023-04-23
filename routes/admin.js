@@ -3,6 +3,11 @@ var router = express.Router();
 
 var slug = require('slug');
 
+const multer = require('multer');
+
+const upload =multer({storage:multer.memoryStorage()});
+
+
 // database module
 var database = require('../config/database');
 var RunQuery = database.RunQuery;
@@ -20,6 +25,7 @@ function isAdmin(req, res, next) {
 
     res.redirect('/');
 }
+
 
 router.route('/')
     .get(isAdmin, function (req, res, next) {
@@ -60,12 +66,42 @@ router.route('/padres/add')
         res.render('admin/addPadre', contextDict);
     })
 
-    .post(isAdmin, function (req, res, next) {
+    .post(isAdmin, upload.single("ProductImage"), function (req, res) {
+        imageFile = req.file.buffer.toString('base64');
+
         var sqlStr = '\
         INSERT INTO padres\
-        VALUES (null, \'' + req.body.name + '\')'
+        VALUES (null, \'' + req.body.name + '\', \'' + imageFile + '\')'
         /*Image = name.png\*/
             ;
+
+        RunQuery(sqlStr, function (category) {
+            res.redirect('/admin/padres');
+        });
+    });
+
+router.route('/padres/:id/edit')
+    .get(isAdmin, function (req, res, next) {
+
+        var sqlStr = '\
+        SELECT *\
+        FROM padres\
+        WHERE PadreID = ' + req.params.id;
+
+        RunQuery(sqlStr, function (category) {
+            var contextDict = {
+                title: 'Admin - Editar padre',
+                category: category[0],
+                customer: req.user
+            };
+
+            res.render('admin/editPadre', contextDict);
+        });
+    })
+
+    .post(isAdmin, upload.single("ProductImage"), function (req, res, next) {
+        imageFile = req.file.buffer.toString('base64');
+        var sqlStr = 'UPDATE padres SET PadreNombre = \'' + req.body.name + '\' , PadreFoto = \'' + imageFile + '\' WHERE PadreID = ' + req.params.id;
 
         RunQuery(sqlStr, function (category) {
             res.redirect('/admin/padres');
@@ -92,7 +128,7 @@ router.route('/cat')
 
         RunQuery(sqlStr, function (categories) {
             var contextDict = {
-                title: 'Admin - Categoría',
+                title: 'Admin - Grupos',
                 categories: categories,
                 customer: req.user
             };
@@ -111,7 +147,7 @@ router.route('/cat/:id/edit')
 
         RunQuery(sqlStr, function (category) {
             var contextDict = {
-                title: 'Admin - Editar Categoría',
+                title: 'Admin - Editar grupo',
                 category: category[0],
                 customer: req.user
             };
@@ -147,7 +183,7 @@ router.route('/cat/:id/delete')
 router.route('/cat/add')
     .get(isAdmin, function (req, res, next) {
         var contextDict = {
-            title: 'Admin - Añadir Categoría',
+            title: 'Admin - Añadir grupo',
             customer: req.user
         };
 
@@ -169,15 +205,12 @@ router.route('/cat/add')
 router.route('/products')
     .get(isAdmin, function (req, res, next) {
         var sqlStr = '\
-                    SELECT Products.*, Categories.CategoryName\
-                    FROM Products\
-                    INNER JOIN Categories\
-                    ON Products.CategoryID = Categories.CategoryID';
+                    SELECT * FROM Students';
 
         RunQuery(sqlStr, function (products) {
 
             var contextDict = {
-                title: 'Admin - Productos',
+                title: 'Admin - Alumnos',
                 products: products,
                 customer: req.user
             };
@@ -190,11 +223,7 @@ router.route('/products/:id/edit')
     .get(isAdmin, function (req, res, next) {
 
         var sqlStr = '\
-                    SELECT Products.*, Categories.CategoryName\
-                    FROM Products\
-                    INNER JOIN Categories\
-                    ON Products.CategoryID = Categories.CategoryID\
-                    WHERE ProductID = ' + req.params.id;
+                    SELECT * FROM Students WHERE ID_Student = ' + req.params.id;
 
         RunQuery(sqlStr, function (product) {
 
@@ -203,24 +232,34 @@ router.route('/products/:id/edit')
                 FROM Categories';
 
             RunQuery(sqlStr, function (categories) {
-                var contextDict = {
-                    title: 'Admin - Editar Producto',
-                    product: product[0],
-                    categories: categories,
-                    customer: req.user
-                };
+                sqlStr = '\
+                    SELECT *\
+                    FROM padres';
 
-                res.render('admin/editProduct', contextDict);
+                RunQuery(sqlStr, function (padres) {
+                    var contextDict = {
+                        title: 'Admin - Editar Alumno',
+                        product: product[0],
+                        categories: categories,
+                        padres: padres,
+                        customer: req.user
+                    };
+
+                    res.render('admin/editProduct', contextDict);
+                });
             });
         });
     })
 
     .post(isAdmin, function (req, res, next) {
         var sqlStr = '\
-        UPDATE Products\
-        SET ProductName = \'' + req.body.name + '\', \
-            CategoryID = ' + req.body.category + ', \
-        WHERE ProductID = ' + req.params.id;
+        UPDATE Students\
+        SET StudentName = \'' + req.body.name + '\', \
+            Grupo = \'' + req.body.category + '\', \
+            Tutor_1 = \'' + req.body.padre1 + '\', \
+            Tutor_2 = \'' + req.body.padre2 + '\', \
+            Tutor_3 = \'' + req.body.padre3 + '\' \
+            WHERE ID_Student = ' + req.params.id;
 
         RunQuery(sqlStr, function (category) {
             res.redirect('/admin/products');
@@ -231,8 +270,8 @@ router.route('/products/:id/delete')
     .post(isAdmin, function (req, res, next) {
 
         var sqlStr = '\
-            DELETE FROM Products\
-            WHERE ProductID = ' + req.params.id;
+            DELETE FROM Students\
+            WHERE ID_Student = ' + req.params.id;
 
         RunQuery(sqlStr, function (result) {
             res.redirect('/admin/products');
@@ -258,7 +297,7 @@ router.route('/products/add')
     
     
                 var contextDict = {
-                    title: 'Admin - Add Product',
+                    title: 'Admin - Añadir padre',
                     categories: categories,
                     padres: padres,
                     customer: req.user
@@ -271,12 +310,13 @@ router.route('/products/add')
 
     .post(isAdmin, function (req, res, next) {
         var sqlStr = '\
-            INSERT INTO Products\
+            INSERT INTO Students\
             VALUES (null, \'' + req.body.name + '\', \''
-                + req.body.category + '\', \''
                 + req.body.padre1 + '\', \''
                 + req.body.padre2 + '\', \''
-                + req.body.padre3 + '\')';
+                + req.body.padre3 + '\', \''
+                + req.body.category + '\', null)';
+
 
             console.log(sqlStr);
 
@@ -285,127 +325,55 @@ router.route('/products/add')
         });
     });
 
-router.route('/orders')
-    .get(isAdmin, function (req, res) {
 
-        var selectQuery = '\
-            SELECT *\
-            FROM Orders';
-
-        RunQuery(selectQuery, function (orders) {
-
-            var contextDict = {
-                title: 'Admin - Asistencia',
-                customer: req.user,
-                orders: orders
-            };
-
-            res.render('admin/orders', contextDict);
-        });
-    });
-
-router.route('/orders/:id')
-    .get(isAdmin, function (req, res) {
-        //get order info
-        var selectQuery = '\
-            SELECT *\
-            FROM Orders\
-            WHERE OrderID = ' + req.params.id;
-
-        RunQuery(selectQuery, function (order) {
-            //get user info
-            selectQuery = '\
-            SELECT *\
-            FROM Users\
-            WHERE UserID = ' + order[0].UserID;
-
-            RunQuery(selectQuery, function (orderCustomer) {
-                //get delivery info
-                selectQuery = '\
-                SELECT 1';
-
-                RunQuery(selectQuery, function (address) {
-                    //get order info
-                    selectQuery = '\
-                    SELECT *\
-                    FROM `Order Details`\
-                    INNER JOIN (\
-                        SELECT Products.*, Categories.CategoryName\
-                        FROM Products\
-                        INNER JOIN Categories\
-                        ON Products.CategoryID = Categories.CategoryID\
-                    ) `Table`\
-                    ON `Order Details`.ProductID = `Table`.ProductID\
-                    WHERE OrderID = ' + order[0].OrderID;
-
-                    RunQuery(selectQuery, function (products) {
-                        //get order info
-
-                        var contextDict = {
-                            title: 'Admin - Ordenes',
-                            customer: req.user,
-                            order: order[0],
-                            orderCustomer: orderCustomer[0],
-                            products: products
-                        };
-
-                        res.render('admin/viewOrder', contextDict);
-                    });
-                });
-            });
-        });
-    });
-
-router.route('/orders/:id/update')
+router.route('/cat/:id/edit')
     .get(isAdmin, function (req, res, next) {
 
-        var selectQuery = '\
-            SELECT *\
-            FROM Orders\
-            WHERE OrderID = ' + req.params.id;
+        var sqlStr = '\
+        SELECT *\
+        FROM Categories\
+        WHERE CategoryID = ' + req.params.id;
 
-        RunQuery(selectQuery, function (order) {
+        RunQuery(sqlStr, function (category) {
+            var contextDict = {
+                title: 'Admin - Editar grupo',
+                category: category[0],
+                customer: req.user
+            };
 
-            selectQuery = '\
-                SELECT 1';
-
-            RunQuery(selectQuery, function (address) {
-
-                selectQuery = '\
-                    SELECT *\
-                    FROM `Order Details`\
-                    INNER JOIN (\
-                        SELECT Products.*, Categories.CategoryName\
-                        FROM Products\
-                        INNER JOIN Categories\
-                        ON Products.CategoryID = Categories.CategoryID\
-                    ) `Table`\
-                    ON `Order Details`.ProductID = `Table`.ProductID\
-                    WHERE OrderID = ' + order[0].OrderID;
-
-                RunQuery(selectQuery, function (products) {
-                    var contextDict = {
-                        title: 'Admin - Actualizar Estatus de Orden ' + req.params.id,
-                        customer: req.user,
-                        order: order[0],
-                        products: products
-                    };
-
-                    res.render('admin/updateOrder', contextDict);
-
-                });
-            });
+            res.render('admin/editCat', contextDict);
         });
     })
 
     .post(isAdmin, function (req, res, next) {
         var sqlStr = '\
-        UPDATE Orders\
-        SET Status = \'' + req.body.status + '\' \
-        WHERE OrderID = ' + req.params.id;
+        UPDATE Categories\
+        SET CategoryName = \'' + req.body.name + '\' ' +
+            
+                /*Image = name.png\*/
+            'WHERE CategoryID = ' + req.params.id;
 
-        RunQuery(sqlStr, function (result) {
-            res.redirect('/admin/orders');
+        RunQuery(sqlStr, function (category) {
+            res.redirect('/admin/cat');
+        });
+    });
+
+router.route('/orders')
+    .get(isAdmin, function (req, res) {
+
+        var selectQuery = '\
+            SELECT *\
+            FROM asistencia';
+
+        RunQuery(selectQuery, function (asistencias) {
+
+            var contextDict = {
+                title: 'Admin - Asistencia',
+                customer: req.user,
+                asistencias: asistencias
+            };
+
+            res.render('admin/orders', contextDict);
         });
     });
 
@@ -419,7 +387,7 @@ router.route('/customers')
         RunQuery(selectQuery, function (customers) {
 
             var contextDict = {
-                title: 'Admin - Usuarios',
+                title: 'Admin - Profesores',
                 customer: req.user,
                 customers: customers
             };
@@ -437,7 +405,7 @@ router.route('/customers/add')
 
         RunQuery(sqlStr, function (categories) {
             var contextDict = {
-                title: 'Admin - Add Profesor',
+                title: 'Admin - Añadir Profesor',
                 categories: categories,
                 customer: req.user
             };

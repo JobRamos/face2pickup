@@ -13,10 +13,10 @@ router.all('/', function (req, res, next) {
 
     RunQuery(sqlStr, function (categories) {
         sqlStr = '\
-            SELECT Products.*, Categories.CategoryName, Categories.CategoryName\
-            FROM Products\
+            SELECT Students.*, Categories.CategoryName, Categories.CategoryName\
+            FROM Students\
             INNER JOIN Categories\
-            ON Products.CategoryID = Categories.CategoryID';
+            ON Students.Grupo = Categories.CategoryID';
 
         RunQuery(sqlStr, function (products) {
             var contextDict = {
@@ -62,10 +62,10 @@ router.route('/cat/:catSlug')
     .all(function (req, res, next) {
         if (req.params.catSlug == "all") {
             var selectQuery = '\
-                SELECT Products.*, Categories.CategoryName, Categories.CategoryName\
-                FROM Products\
+                SELECT Students.*, Categories.CategoryName, Categories.CategoryName\
+                FROM Students\
                 INNER JOIN Categories\
-                ON Products.CategoryID = Categories.CategoryID';
+                ON Students.Grupo = Categories.CategoryID';
 
             RunQuery(selectQuery, function (products) {
 
@@ -88,7 +88,7 @@ router.route('/cat/:catSlug')
         }
         else if (req.params.catSlug == "buscar"){
             var sqlStr = '\
-                SELECT Products.* FROM Products';
+                SELECT Students.* FROM Students';
 
             RunQuery(sqlStr, function (products) {
 
@@ -111,10 +111,10 @@ router.route('/cat/:catSlug')
             });
         } else {
             var sqlStr = '\
-                SELECT Products.*, Categories.CategoryName, Categories.CategoryName\
-                FROM Products\
+                SELECT Students.*, Categories.CategoryName, Categories.CategoryName\
+                FROM Students\
                 INNER JOIN Categories\
-                ON Products.CategoryID = Categories.CategoryID\
+                ON Students.Grupo = Categories.CategoryID\
                 WHERE Categories.CategoryName = \'' + req.params.catSlug + '\'';
 
             RunQuery(sqlStr, function (products) {
@@ -143,7 +143,7 @@ router.route('/cat/:catSlug/:prodSlug')
     .all(function (req, res, next) {
         var sqlStr = '\
         SELECT *\
-        FROM Products\
+        FROM Students\
         WHERE ProductSlug = \'' + req.params.prodSlug + '\'';
 
         RunQuery(sqlStr, function (product) {
@@ -158,25 +158,7 @@ router.route('/cat/:catSlug/:prodSlug')
         });
     });
 
-router.route('/xd')
-    .all(function (req, res, next) {
-        
-            res.render('xd.html', contextDict);
-       
-    });
-
     
-router.route('/subscribe')
-    .post(function (req, res, next) {
-        var sqlStr = '\
-        INSERT INTO Subscribers\
-        VALUES (\'' + req.body.email + '\')';
-
-        RunQuery(sqlStr, function (result) {
-            res.redirect('/');
-        });
-    });
-
 /* Route Login page.
  router.route('/login/')
  .get (function (req, res, next) {
