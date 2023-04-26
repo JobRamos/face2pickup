@@ -363,7 +363,7 @@ router.route('/orders')
 
         var selectQuery = '\
             SELECT *\
-            FROM asistencia';
+            FROM asistencia ORDER BY fecha DESC';
 
         RunQuery(selectQuery, function (asistencias) {
 

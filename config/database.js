@@ -1,8 +1,8 @@
 // database module
 var mysql = require('mysql');
 var config = {
-    // host: 'localhost',
-    host: '110.238.80.161',
+    host: 'localhost',
+    // host: '110.238.80.161',
     user: 'root',
     password: 'Harveylinux77+',
     database: 'base-escuela'

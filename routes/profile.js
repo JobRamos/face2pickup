@@ -103,7 +103,7 @@ router.route('/:username/change-password')
 router.route('/:Grupo/asistencia')
     .get(isLoggedIn, function (req, res) {
 
-        var selectQuery = 'SELECT * FROM asistencia WHERE grupo = \'' + req.user.CategoryName + '\' AND DATE(fecha) = CURDATE() ORDER BY fecha ASC';
+        var selectQuery = 'SELECT * FROM asistencia WHERE grupo = \'' + req.user.CategoryName + '\' AND DATE(fecha) = CURDATE() ORDER BY fecha DESC';
 
         RunQuery(selectQuery, function (orders) {
             res.render('profile/asistencia', {
@@ -185,7 +185,7 @@ router.route('/:username/orders/:id')
             
 
             var selectQuery = 'SELECT * FROM asistencia\
-            WHERE grupo = \'' + req.user.CategoryName + '\' ORDER BY fecha ASC';
+            WHERE grupo = \'' + req.user.CategoryName + '\' AND DATE(fecha) = CURDATE() ORDER BY fecha DESC';
 
 
             RunQuery(selectQuery, function (orders) {
@@ -211,7 +211,7 @@ router.route('/asistencia/:id/anular')
             
 
             var selectQuery = 'SELECT * FROM asistencia\
-            WHERE grupo = \'' + req.user.CategoryName + '\' ORDER BY fecha ASC';
+            WHERE grupo = \'' + req.user.CategoryName + '\' AND DATE(fecha) = CURDATE() ORDER BY fecha DESC';
 
 
             RunQuery(selectQuery, function (orders) {
